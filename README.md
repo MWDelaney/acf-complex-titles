@@ -5,6 +5,8 @@ A WordPress plugin that adds custom fields to create a formatted title
 
 This plugin creates custom fields below the title Pages and automatically replaces `the_title()` when called from inside the loop.
 
+![Screenshot](/../gh-pages/screenshot.png?raw=true "Advanced Custom Fields Complex Titles")
+
 ## Requirements
 
 1. WordPress 4.5+
