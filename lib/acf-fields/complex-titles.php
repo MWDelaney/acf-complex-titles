@@ -75,102 +75,7 @@ if( function_exists('acf_add_local_field_group') ):
                         'max' => '',
                         'layout' => 'table',
                         'button_label' => 'Add Word',
-                        'sub_fields' => array (
-                            array (
-                                'key' => 'field_5673331424dd6',
-                                'label' => 'Word or Phrase',
-                                'name' => 'word_or_phrase',
-                                'type' => 'text',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array (
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'default_value' => '',
-                                'placeholder' => '',
-                                'prepend' => '',
-                                'append' => '',
-                                'maxlength' => '',
-                                'readonly' => 0,
-                                'disabled' => 0,
-                            ),
-                            array (
-                                'key' => 'field_5673332224dd7',
-                                'label' => 'Emphasize',
-                                'name' => 'emphasize',
-                                'type' => 'true_false',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array (
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'message' => '',
-                                'default_value' => 0,
-                            ),
-                            array (
-                                'key' => 'field_56f143ff070bc',
-                                'label' => 'Size',
-                                'name' => 'size',
-                                'type' => 'select',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array (
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'choices' => array (
-                                    'md' => 'Medium',
-                                    'sm' => 'Small',
-                                    'lg' => 'Large',
-                                ),
-                                'default_value' => array (
-                                ),
-                                'allow_null' => 0,
-                                'multiple' => 0,
-                                'ui' => 0,
-                                'ajax' => 0,
-                                'placeholder' => '',
-                                'disabled' => 0,
-                                'readonly' => 0,
-                            ),
-                            array (
-                                'key' => 'field_56f056b90e0a7',
-                                'label' => 'Alignment',
-                                'name' => 'alignment',
-                                'type' => 'select',
-                                'instructions' => '',
-                                'required' => 0,
-                                'conditional_logic' => 0,
-                                'wrapper' => array (
-                                    'width' => '',
-                                    'class' => '',
-                                    'id' => '',
-                                ),
-                                'choices' => array (
-                                    'none' => 'None',
-                                    'left' => 'Left',
-                                    'right' => 'Right',
-                                    'center' => 'Center',
-                                ),
-                                'default_value' => array (
-                                ),
-                                'allow_null' => 0,
-                                'multiple' => 0,
-                                'ui' => 0,
-                                'ajax' => 0,
-                                'placeholder' => '',
-                                'disabled' => 0,
-                                'readonly' => 0,
-                            ),
-                        ),
+                        'sub_fields' => array (),
                     ),
                     array (
                         'key' => 'field_56f07daf57698',
@@ -267,6 +172,45 @@ if( function_exists('acf_add_local_field_group') ):
 
     }
 
+
+
+  /*--------------------------------------------------------------------------------------
+    *
+    * Include all enabled fields
+    *
+    * @author Michael W. Delaney
+    * @since 1.0
+    *
+    * Declare theme support for specific fields. Default is to include all fields: 
+    *   add_theme_support( 'complex-title-fields', array( 'emphasize', 'alignment' ) );
+    *
+    *-------------------------------------------------------------------------------------*/
+
+        
+    //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
+    if( current_theme_supports( 'complex-title-fields' ) ) {
+        $fields_supported = get_theme_support( 'complex-title-fields' );
+        $fields_enabled = $fields_supported[0];
+    } else {
+        // If theme support is not explicitly defined, enable all fields as a fallback.
+        $fields_enabled = array();
+        foreach(glob(ACFCT_PLUGIN_DIR . 'lib/acf-fields/fields/*.php') as $field) {
+            $fields_enabled[] = basename($field, '.php');
+        }
+    }
+
+    // Enable each field
+    $fields_array = array();
+    foreach ($fields_enabled as $field) {
+        include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/fields/' . $field . '.php');
+    }
+    usort($fields_array, function ($a, $b) {
+        if ($a['order'] == $b['order']) return 0;
+        return $a['order'] < $b['order'] ? -1 : 1;
+    });
+    foreach ( $fields_array as $field) {
+        $args['fields'][1]['sub_fields'][1]['sub_fields'][] = $field['field'];
+    }
 
 
 
