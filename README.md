@@ -14,6 +14,7 @@ This plugin creates custom fields below the title Pages and automatically replac
 
 ## Usage
 The following formatting options are included at this time:
+
 1. Emphasize
 2. Size (small, medium, large)
 3. Alignment (left, right, center)
