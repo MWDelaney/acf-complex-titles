@@ -27,6 +27,7 @@ add_theme_support( 'complex-titles-fields', array( 'word-or-phrase', 'size' ) );
 ````
 
 The following layouts are also included for headline groups:
+
 1. Alignment
 
 ### Enable only some layouts
