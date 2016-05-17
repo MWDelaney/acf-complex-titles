@@ -169,9 +169,7 @@ if( function_exists('acf_add_local_field_group') ):
             $layout_fields_enabled[] = basename($layout_field, '.php');
         }
     }
-print_r($layout_fields_enabled);
     // Enable each field
-echo count( $layout_fields_enabled );
     if( count( $layout_fields_enabled ) <= 0 ) {
         unset($args['fields'][1]['sub_fields'][2]);
     } else {
