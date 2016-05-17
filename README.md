@@ -32,7 +32,7 @@ The following layouts are also included for headline groups:
 ### Enable only some layouts
 To remove layouts from the available list, declare theme support for only the layouts you wish to use:
 ````
-add_theme_support( 'complex-titles-layouts', array( 'alignment' ) );
+add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
 ````
 
 ### Change post type Complex Titles

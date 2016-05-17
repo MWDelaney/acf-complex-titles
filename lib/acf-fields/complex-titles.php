@@ -157,7 +157,7 @@ if( function_exists('acf_add_local_field_group') ):
     *
     *-------------------------------------------------------------------------------------*/
 
-        
+    
     //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
     if( current_theme_supports( 'complex-titles-layout' ) ) {
         $layout_fields_supported = get_theme_support( 'complex-titles-layout' );
@@ -169,20 +169,24 @@ if( function_exists('acf_add_local_field_group') ):
             $layout_fields_enabled[] = basename($layout_field, '.php');
         }
     }
-
+print_r($layout_fields_enabled);
     // Enable each field
-    $layout_fields_array = array();
-    foreach ($layout_fields_enabled as $layout_field) {
-        include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/' . $layout_field . '.php');
+echo count( $layout_fields_enabled );
+    if( count( $layout_fields_enabled ) <= 0 ) {
+        unset($args['fields'][1]['sub_fields'][2]);
+    } else {
+        $layout_fields_array = array();
+        foreach ($layout_fields_enabled as $layout_field) {
+            include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/' . $layout_field . '.php');
+        }
+        usort($layout_fields_array, function ($a, $b) {
+            if ($a['order'] == $b['order']) return 0;
+            return $a['order'] < $b['order'] ? -1 : 1;
+        });
+        foreach ( $layout_fields_array as $layout_field) {
+            $args['fields'][1]['sub_fields'][] = $layout_field['field'];
+        }
     }
-    usort($layout_fields_array, function ($a, $b) {
-        if ($a['order'] == $b['order']) return 0;
-        return $a['order'] < $b['order'] ? -1 : 1;
-    });
-    foreach ( $layout_fields_array as $layout_field) {
-        $args['fields'][1]['sub_fields'][] = $layout_field['field'];
-    }
-
 
 
 
