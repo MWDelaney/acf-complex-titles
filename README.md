@@ -15,9 +15,25 @@ This plugin creates custom fields below the title Pages and automatically replac
 ## Usage
 The following formatting options are included at this time:
 
+1. Word or Phrase (the actual content, don't remove this one)
 1. Emphasize
 2. Size (small, medium, large)
 3. Alignment (left, right, center)
+
+### Enable only some fields
+To remove fields from the available list, declare theme support for only the fields you wish to use:
+````
+add_theme_support( 'complex-titles-fields', array( 'word-or-phrase', 'size' ) );
+````
+
+The following layouts are also included for headline groups:
+1. Alignment
+
+### Enable only some layouts
+To remove layouts from the available list, declare theme support for only the layouts you wish to use:
+````
+add_theme_support( 'complex-titles-layouts', array( 'alignment' ) );
+````
 
 ### Change post type Complex Titles
 By default content blocks are enabled for Pages, to define which post types blocks should be available on, declare theme support:
