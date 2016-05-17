@@ -5,7 +5,7 @@ var runSequence = require('run-sequence');
 gulp.task('styles', function() {
     gulp.src('assets/sass/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(gulp.dest('./css/'));
+        .pipe(gulp.dest('./assets/css/'));
 });
 
 //Watch task
