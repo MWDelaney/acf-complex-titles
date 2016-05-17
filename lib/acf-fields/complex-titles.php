@@ -153,14 +153,14 @@ if( function_exists('acf_add_local_field_group') ):
     * @since 1.0
     *
     * Declare theme support for specific layout fields. Default is to include all layout fields: 
-    *   add_theme_support( 'complex-title-layout', array( 'alignment' ) );
+    *   add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
     *
     *-------------------------------------------------------------------------------------*/
 
         
     //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
-    if( current_theme_supports( 'complex-title-layout' ) ) {
-        $layout_fields_supported = get_theme_support( 'complex-title-layout' );
+    if( current_theme_supports( 'complex-titles-layout' ) ) {
+        $layout_fields_supported = get_theme_support( 'complex-titles-layout' );
         $layout_fields_enabled = $layout_fields_supported[0];
     } else {
         // If theme support is not explicitly defined, enable all fields as a fallback.
@@ -194,14 +194,14 @@ if( function_exists('acf_add_local_field_group') ):
     * @since 1.0
     *
     * Declare theme support for specific fields. Default is to include all fields: 
-    *   add_theme_support( 'complex-title-fields', array( 'emphasize', 'alignment' ) );
+    *   add_theme_support( 'complex-titles-fields', array( 'emphasize', 'alignment' ) );
     *
     *-------------------------------------------------------------------------------------*/
 
         
     //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
-    if( current_theme_supports( 'complex-title-fields' ) ) {
-        $fields_supported = get_theme_support( 'complex-title-fields' );
+    if( current_theme_supports( 'complex-titles-fields' ) ) {
+        $fields_supported = get_theme_support( 'complex-titles-fields' );
         $fields_enabled = $fields_supported[0];
     } else {
         // If theme support is not explicitly defined, enable all fields as a fallback.
