@@ -3,14 +3,14 @@ var sass = require('gulp-sass');
 var runSequence = require('run-sequence');
 
 gulp.task('styles', function() {
-    gulp.src('sass/**/*.scss')
+    gulp.src('assets/sass/**/*.scss')
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest('./css/'));
 });
 
 //Watch task
 gulp.task('watch',function() {
-    gulp.watch('sass/**/*.scss',['styles']);
+    gulp.watch('assets/sass/**/*.scss',['styles']);
 });
 
 //Build task

@@ -77,8 +77,8 @@ License: MIT
         // ======================================================================== //
         
             function admin_styles_scripts() {
-                wp_enqueue_style( 'acf-complex-titles-admin-style', ACFCT_PLUGIN_URL . 'css/admin.css' );
-                wp_enqueue_script( 'acf-complex-titles-admin-script', ACFCT_PLUGIN_URL . 'js/admin-script.js' );
+                wp_enqueue_style( 'acf-complex-titles-admin-style', ACFCT_PLUGIN_URL . 'assets/css/admin.css' );
+                wp_enqueue_script( 'acf-complex-titles-admin-script', ACFCT_PLUGIN_URL . 'assets/js/admin-script.js' );
             }
         
         // ======================================================================== //
@@ -90,7 +90,7 @@ License: MIT
         // ======================================================================== //
         
             function front_end_styles() {
-                wp_enqueue_style( 'acf-complex-titles-style', ACFCT_PLUGIN_URL . 'css/styles.css' );
+                wp_enqueue_style( 'acf-complex-titles-style', ACFCT_PLUGIN_URL . 'assets/css/styles.css' );
             }
         
         // ======================================================================== //
