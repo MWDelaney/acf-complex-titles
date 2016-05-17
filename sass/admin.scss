@@ -1,0 +1,12 @@
+.acf-complex-titles-preview-area {
+    position: relative;
+    padding: 65px;
+    box-sizing: border-box;
+    background-color: #efefef;
+    h1 {
+        color: #444 !important;
+        font-size: 3vw !important;
+        line-height: 3vw !important
+    }
+    @import "styles.scss";
+}

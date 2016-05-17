@@ -1,0 +1,25 @@
+{
+  "name": "acf-complex-titles",
+  "version": "1.0.0",
+  "description": "Complex titles with previews for WordPress content types using Advanced Custom Fields Pro 5",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.1",
+    "run-sequence": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MWDelaney/acf-complex-titles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MWDelaney/acf-complex-titles/issues"
+  },
+  "homepage": "https://github.com/MWDelaney/acf-complex-titles#readme"
+}

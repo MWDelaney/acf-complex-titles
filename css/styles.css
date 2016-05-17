@@ -1,0 +1,39 @@
+.complex-title h1 .complex-title-group {
+  font-weight: 300;
+  display: block; }
+  .complex-title h1 .complex-title-group-alignment-none {
+    text-align: left; }
+  .complex-title h1 .complex-title-group-alignment-left {
+    text-align: left; }
+  .complex-title h1 .complex-title-group-alignment-right {
+    text-align: right; }
+  .complex-title h1 .complex-title-group-alignment-center {
+    text-align: center; }
+
+.complex-title h1 .complex-title-element-emphasize {
+  font-weight: 600; }
+
+.complex-title h1 .complex-title-element-size-sm {
+  font-size: 50%;
+  line-height: 100%; }
+
+.complex-title h1 .complex-title-element-size-lg {
+  font-size: 150%;
+  line-height: 100%; }
+
+.complex-title h1 .complex-title-element-alignment-none {
+  display: inline; }
+
+.complex-title h1 .complex-title-element-alignment-left {
+  display: block;
+  text-align: center;
+  text-align: left; }
+
+.complex-title h1 .complex-title-element-alignment-right {
+  display: block;
+  text-align: center;
+  text-align: right; }
+
+.complex-title h1 .complex-title-element-alignment-center {
+  display: block;
+  text-align: center; }
