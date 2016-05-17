@@ -93,35 +93,6 @@ if( function_exists('acf_add_local_field_group') ):
                         'placement' => 'top',
                         'endpoint' => 0,
                     ),
-                    array (
-                        'key' => 'field_56f07db857699',
-                        'label' => 'Alignment',
-                        'name' => 'alignment',
-                        'type' => 'select',
-                        'instructions' => '',
-                        'required' => 0,
-                        'conditional_logic' => 0,
-                        'wrapper' => array (
-                            'width' => '',
-                            'class' => '',
-                            'id' => '',
-                        ),
-                        'choices' => array (
-                            'none' => 'None',
-                            'left' => 'Left',
-                            'right' => 'Right',
-                            'center' => 'Center',
-                        ),
-                        'default_value' => array (
-                        ),
-                        'allow_null' => 0,
-                        'multiple' => 0,
-                        'ui' => 0,
-                        'ajax' => 0,
-                        'placeholder' => '',
-                        'disabled' => 0,
-                        'readonly' => 0,
-                    ),
                 ),
             ),
         ),
@@ -171,6 +142,47 @@ if( function_exists('acf_add_local_field_group') ):
         $args['location'][][] = $location_array;
 
     }
+
+
+
+/*--------------------------------------------------------------------------------------
+    *
+    * Include all enabled layout fields
+    *
+    * @author Michael W. Delaney
+    * @since 1.0
+    *
+    * Declare theme support for specific layout fields. Default is to include all layout fields: 
+    *   add_theme_support( 'complex-title-layout', array( 'alignment' ) );
+    *
+    *-------------------------------------------------------------------------------------*/
+
+        
+    //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
+    if( current_theme_supports( 'complex-title-layout' ) ) {
+        $layout_fields_supported = get_theme_support( 'complex-title-layout' );
+        $layout_fields_enabled = $layout_fields_supported[0];
+    } else {
+        // If theme support is not explicitly defined, enable all fields as a fallback.
+        $layout_fields_enabled = array();
+        foreach(glob(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/*.php') as $layout_field) {
+            $layout_fields_enabled[] = basename($layout_field, '.php');
+        }
+    }
+
+    // Enable each field
+    $layout_fields_array = array();
+    foreach ($layout_fields_enabled as $layout_field) {
+        include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/' . $layout_field . '.php');
+    }
+    usort($layout_fields_array, function ($a, $b) {
+        if ($a['order'] == $b['order']) return 0;
+        return $a['order'] < $b['order'] ? -1 : 1;
+    });
+    foreach ( $layout_fields_array as $layout_field) {
+        $args['fields'][1]['sub_fields'][] = $layout_field['field'];
+    }
+
 
 
 
