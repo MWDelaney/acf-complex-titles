@@ -40,7 +40,7 @@ add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
 By default content blocks are enabled for Pages, to define which post types blocks should be available on, declare theme support:
 
 ````
-add_theme_support( 'complex-titles-location', array( 'page', 'post' ) );
+add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'page'), array('post_type', '==', 'post') ) );
 ````
 
 ## Templates

@@ -42,7 +42,7 @@ License: MIT
 // Class for other functionality
 // ======================================================================== //
 
-    class ACFCompelexTitles {
+    class ACFComplexTitles {
         
         // ======================================================================== //		
         // Initialize shortcodes and conditionally include opt-in Bootstrap scripts
@@ -150,4 +150,4 @@ License: MIT
 
 // ======================================================================== //
 
-new ACFCompelexTitles();
+$acf_complex_titles = new ACFComplexTitles();
