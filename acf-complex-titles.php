@@ -10,37 +10,42 @@ License: MIT
 */
 
 
-// ======================================================================== //		
-// Include necessary functions and files
-// ======================================================================== //
+/**
+ * Define constants
+ */
 
     define( 'ACFCT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
     define( 'ACFCT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+
+/**
+ * Require classes
+ *
+ * Require classes to load template files from site theme with fallback to plugin directory
+ */
 
     require ACFCT_PLUGIN_DIR . 'lib/class-gamajo-template-loader.php';
     require ACFCT_PLUGIN_DIR . 'lib/class-acfct-template-loader.php';
 
 
-// ======================================================================== //
 
-
-
-// ======================================================================== //		
-// Wrapper for get_template_part() to check the plugin's template first
-// ======================================================================== //
+/**
+ * Template wrapper
+ *
+ * @param string $slug The slug name for the generic template.
+ * @param string $load The name of the specialised template.
+ */
 
     function ct_template($slug, $load = null) {
         $acfct_templates = new ACFCT_Template_Loader; 
         $acfct_templates->get_template_part( $slug, $load );
     }
 
-// ======================================================================== //
 
 
-
-// ======================================================================== //		
-// Class for other functionality
-// ======================================================================== //
+/**
+ * Main Complex a Titles class
+ */
 
     class ACFComplexTitles {
         
