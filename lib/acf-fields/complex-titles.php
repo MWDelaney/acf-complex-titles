@@ -110,7 +110,7 @@ if( function_exists('acf_add_local_field_group') ):
                 ),
             ),
         ),
-	'location' => array (),
+	    'location' => array (),
         'menu_order' => 0,
         'position' => 'acf_after_title',
         'style' => 'default',
