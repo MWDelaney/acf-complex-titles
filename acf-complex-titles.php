@@ -103,7 +103,7 @@ License: MIT
          */
 
             function add_shortcodes() {
-                  add_shortcode( 'acfct_title', array($this, 'acfct_title'));
+                  add_shortcode( 'acfct-title', array($this, 'acfct_title'));
             }
 
         /**
