@@ -59,7 +59,7 @@ if( function_exists('acf_add_local_field_group') ):
                     ),
                     array (
                         'key' => 'field_56f05bf5f9da8',
-                        'label' => 'Title',
+                        'label' => 'Title Group',
                         'name' => 'title',
                         'type' => 'repeater',
                         'instructions' => '',
@@ -125,7 +125,7 @@ if( function_exists('acf_add_local_field_group') ):
     * Default: page
     *
     * Declare theme support for specific post types:
-    *   add_theme_support( 'complex-titles-location', array( array('page'), array('post') ) );
+    *   add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'page'), array('post_type', '==', 'post') ) );
     *
     *-------------------------------------------------------------------------------------*/
 
@@ -164,7 +164,6 @@ if( function_exists('acf_add_local_field_group') ):
     *   add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
     *
     *-------------------------------------------------------------------------------------*/
-
     
     //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
     if( current_theme_supports( 'complex-titles-layout' ) ) {
@@ -180,6 +179,7 @@ if( function_exists('acf_add_local_field_group') ):
     // Enable each field
     if( count( $layout_fields_enabled ) <= 0 ) {
         unset($args['fields'][1]['sub_fields'][2]);
+        unset($args['fields'][1]['sub_fields'][0]);
     } else {
         $layout_fields_array = array();
         foreach ($layout_fields_enabled as $layout_field) {
