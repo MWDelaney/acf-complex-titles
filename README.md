@@ -36,8 +36,8 @@ To remove layouts from the available list, declare theme support for only the la
 add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
 ````
 
-### Change post type Complex Titles
-By default content blocks are enabled for Pages, to define which post types blocks should be available on, declare theme support:
+### Change which post types get Complex Titles
+By default complex titles are enabled for Pages, to define which post types complex titles should be available on, declare theme support:
 
 ````{r, engine='php', count_lines}
 add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'page'), array('post_type', '==', 'post') ) );
