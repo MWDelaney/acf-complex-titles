@@ -1,15 +1,12 @@
 <?php
-
-  /*--------------------------------------------------------------------------------------
-    *
-    * Field: Emphasize
-    *
-    * @author Michael W. Delaney
-    * @since 1.0
-    *
-    * Checkbox
-    *
-    *-------------------------------------------------------------------------------------*/
+/**
+ * Field: Emphasize
+ *
+ * @author Michael W. Delaney
+ * @since 1.0
+ *
+ * Checkbox
+ */
 
 $fields_array[] =
     array ( 'order' => '10', 

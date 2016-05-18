@@ -1,15 +1,12 @@
 <?php
-
-  /*--------------------------------------------------------------------------------------
-    *
-    * Field: Word or Phrase
-    *
-    * @author Michael W. Delaney
-    * @since 1.0
-    *
-    * Text
-    *
-    *-------------------------------------------------------------------------------------*/
+/**
+ * Field: Word or Phrase
+ *
+ * @author Michael W. Delaney
+ * @since 1.0
+ *
+ * Text
+ */
 
 $fields_array[] =
     array ( 'order' => '0',

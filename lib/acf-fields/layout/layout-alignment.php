@@ -1,15 +1,14 @@
 <?php
 
-  /*--------------------------------------------------------------------------------------
-    *
-    * Layout Field: Alignment
-    *
-    * @author Michael W. Delaney
-    * @since 1.0
-    *
-    * Select
-    *
-    *-------------------------------------------------------------------------------------*/
+/**
+ *
+ * Layout Field: Alignment
+ *
+ * @author Michael W. Delaney
+ * @since 1.0
+ * 
+ * Select
+ */
 
 
 $layout_fields_array[] =

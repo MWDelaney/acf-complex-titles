@@ -1,15 +1,12 @@
 <?php
-
-  /*--------------------------------------------------------------------------------------
-    *
-    * Field: Alignment
-    *
-    * @author Michael W. Delaney
-    * @since 1.0
-    *
-    * Select
-    *
-    *-------------------------------------------------------------------------------------*/
+/**
+ * Field: Alignment
+ *
+ * @author Michael W. Delaney
+ * @since 1.0
+ *
+ * Select
+ */
 
 $fields_array[] =
     array ( 'order' => '50', 

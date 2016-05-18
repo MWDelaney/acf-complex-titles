@@ -1,6 +1,20 @@
 <?php
+/**
+ * Create custom fields for ACF Complex Titles
+ *
+ * @package   acf-complex-titles
+ * @author    Michael W. Delaney
+ * @link      https://github.com/MWDelaney/acf-complex-titles
+ * @copyright 2016 Michael W. Delaney
+ * @license   MIT
+ * @version   1.0
+ */
+
 if( function_exists('acf_add_local_field_group') ):
 
+    /**
+     * Variable holding the ACF fields definition to be automatically created
+     */
     $args = array (
         'key' => 'group_567332edc8e48',
         'title' => 'Complex Titles',
@@ -96,15 +110,7 @@ if( function_exists('acf_add_local_field_group') ):
                 ),
             ),
         ),
-	'location' => array (
-		array (
-			array (
-				'param' => 'post_type',
-				'operator' => '==',
-				'value' => 'page',
-			),
-		),
-	),
+	'location' => array (),
         'menu_order' => 0,
         'position' => 'acf_after_title',
         'style' => 'default',
@@ -115,19 +121,18 @@ if( function_exists('acf_add_local_field_group') ):
         'description' => '',
     );
 
-/*--------------------------------------------------------------------------------------
-    *
+
+    /**
     * Check for declared post types to attach fields to
     *
     * @author Michael W. Delaney
     * @since 1.0
     *
-    * Default: page
+    * Default: post_type == page
     *
     * Declare theme support for specific post types:
     *   add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'page'), array('post_type', '==', 'post') ) );
-    *
-    *-------------------------------------------------------------------------------------*/
+    */
 
     //Check if theme support is explicitly defined. If so, enable all attachments declared in theme support.
     if( current_theme_supports( 'complex-titles-location' ) ) {
@@ -143,18 +148,18 @@ if( function_exists('acf_add_local_field_group') ):
     // Enable each location
     $location_array = array();
     foreach ($locations_enabled as $location) {
+        // There is probably a better way to do this, but this makes it easy to visualize each location being added
         $this_array = array();
         $this_array['param']        = ($location[0]) ? $location[0] : 'post_type';
         $this_array['operator']     = ($location[1]) ? $location[1] : '==';
         $this_array['value']        = ($location[2]) ? $location[2] : '';
         $location_array[]           = array($this_array);
     }
-    
+    // Insert each location into the $args array
     $args['location'] = $location_array;
 
 
-/*--------------------------------------------------------------------------------------
-    *
+    /**
     * Include all enabled layout fields
     *
     * @author Michael W. Delaney
@@ -163,8 +168,10 @@ if( function_exists('acf_add_local_field_group') ):
     * Declare theme support for specific layout fields. Default is to include all layout fields: 
     *   add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
     *
-    *-------------------------------------------------------------------------------------*/
-    
+    * Pass an empty array to disable alignment fields altogether:
+    *   add_theme_support( 'complex-titles-layout', array() );
+    */
+       
     //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
     if( current_theme_supports( 'complex-titles-layout' ) ) {
         $layout_fields_supported = get_theme_support( 'complex-titles-layout' );
@@ -176,7 +183,8 @@ if( function_exists('acf_add_local_field_group') ):
             $layout_fields_enabled[] = basename($layout_field, '.php');
         }
     }
-    // Enable each field
+    // Enable each layout field
+    // If no layout fields are enabled, remove the tabs to avoid clutter
     if( count( $layout_fields_enabled ) <= 0 ) {
         unset($args['fields'][1]['sub_fields'][2]);
         unset($args['fields'][1]['sub_fields'][0]);
@@ -185,10 +193,12 @@ if( function_exists('acf_add_local_field_group') ):
         foreach ($layout_fields_enabled as $layout_field) {
             include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/' . $layout_field . '.php');
         }
+        // Sort layout fields by the 'order' element
         usort($layout_fields_array, function ($a, $b) {
             if ($a['order'] == $b['order']) return 0;
             return $a['order'] < $b['order'] ? -1 : 1;
         });
+        // Insert each layout field into the $args array
         foreach ( $layout_fields_array as $layout_field) {
             $args['fields'][1]['sub_fields'][] = $layout_field['field'];
         }
@@ -196,7 +206,7 @@ if( function_exists('acf_add_local_field_group') ):
 
 
 
-  /*--------------------------------------------------------------------------------------
+    /**
     *
     * Include all enabled fields
     *
@@ -206,10 +216,9 @@ if( function_exists('acf_add_local_field_group') ):
     * Declare theme support for specific fields. Default is to include all fields: 
     *   add_theme_support( 'complex-titles-fields', array( 'emphasize', 'alignment' ) );
     *
-    *-------------------------------------------------------------------------------------*/
+    */
 
-        
-    //Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
+    //Check if theme support is explicitly defined. If so, only enable fields declared in theme support.
     if( current_theme_supports( 'complex-titles-fields' ) ) {
         $fields_supported = get_theme_support( 'complex-titles-fields' );
         $fields_enabled = $fields_supported[0];
@@ -226,26 +235,26 @@ if( function_exists('acf_add_local_field_group') ):
     foreach ($fields_enabled as $field) {
         include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/fields/' . $field . '.php');
     }
+    // Sort fields by the 'order' element
     usort($fields_array, function ($a, $b) {
         if ($a['order'] == $b['order']) return 0;
         return $a['order'] < $b['order'] ? -1 : 1;
     });
+    // Insert each field into the $args array
     foreach ( $fields_array as $field) {
         $args['fields'][1]['sub_fields'][1]['sub_fields'][] = $field['field'];
     }
 
 
 
-  /*--------------------------------------------------------------------------------------
-    *
+    /**
     * Add the local field group, with its layouts, to ACF
     *
     * @author Michael W. Delaney
     * @since 1.0
     *
-    *-------------------------------------------------------------------------------------*/
+    */
 
-    //Create local field group with all enabled layouts.
     acf_add_local_field_group($args);
 
 endif;

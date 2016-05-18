@@ -49,9 +49,9 @@ License: MIT
 
     class ACFComplexTitles {
         
-        // ======================================================================== //		
-        // Initialize shortcodes and conditionally include opt-in Bootstrap scripts
-        // ======================================================================== //
+        /**
+         * Run filters and actions
+         */
 
             function __construct() {
 
@@ -61,7 +61,7 @@ License: MIT
                 //Initialize ACF fields
                 add_action( 'init', array( $this, 'create_acf_fields' ) );	  
 
-                // Append shortcode to the_content
+                // Maybe replace title with our complex title
                 add_filter( 'the_title', array( $this, 'replace_title' ) );
 
                 // Enqueue admin styles and scripts
@@ -72,43 +72,43 @@ License: MIT
 
 
             }
-        
-        // ======================================================================== //
-        
+                
         
         
-        // ======================================================================== //		
-        // Function to enqueue admin styles and scripts
-        // ======================================================================== //
+        /**
+         * Enqueue admin scripts and styles
+         */
         
             function admin_styles_scripts() {
                 wp_enqueue_style( 'acf-complex-titles-admin-style', ACFCT_PLUGIN_URL . 'assets/css/admin.css' );
                 wp_enqueue_script( 'acf-complex-titles-admin-script', ACFCT_PLUGIN_URL . 'assets/js/admin-script.js' );
             }
-        
-        // ======================================================================== //
-        
+                
         
         
-        // ======================================================================== //		
-        // Function to enqueue admin styles and scripts
-        // ======================================================================== //
+        /**
+         * Enqueue front-end scripts and styles
+         */
         
             function front_end_styles() {
                 wp_enqueue_style( 'acf-complex-titles-style', ACFCT_PLUGIN_URL . 'assets/css/styles.css' );
             }
         
-        // ======================================================================== //
-
         
 
-        // ======================================================================== //		
-        // Add a shortcode so we can more easily append it to the_content()
-        // ======================================================================== //
+        /**
+         * Add 'acfct_title' shortcode
+         *
+         * @uses acfct_title Function to build the shorcode
+         */
 
             function add_shortcodes() {
                   add_shortcode( 'acfct_title', array($this, 'acfct_title'));
             }
+
+        /**
+         * Build the shortcode, call templates
+         */
 
             function acfct_title() { 
                 ob_start();
@@ -116,16 +116,15 @@ License: MIT
                 return ob_get_clean();
             }
 
-        // ======================================================================== //
 
         
-        // ======================================================================== //		
-        // Create ACF Fields
-        // ======================================================================== //
+        /**
+         * Add the ACF fields
+         */
 
             function create_acf_fields() {
                 $acf_includes = [
-                  'lib/acf-fields/complex-titles.php'                  // Complex Titles
+                  'lib/acf-fields/complex-titles.php'
                 ];
 
                 foreach ($acf_includes as $file) {
@@ -133,13 +132,13 @@ License: MIT
                 }
             }
 
-        // ======================================================================== //
 
-
-
-        // ======================================================================== //		
-        // Replace the title with our complex title
-        // ======================================================================== //
+        /**
+         * Replace the WordPress title with our complex title
+         * 
+         * @param string $title The original WordPress title
+         * @return string
+         */
             function replace_title($title) {
                 if( have_rows('build_title') && in_the_loop() ) {
                     $title = do_shortcode('[acfct_title]');
@@ -149,10 +148,7 @@ License: MIT
                 }
             }
 
-        // ======================================================================== //
-
     }
 
-// ======================================================================== //
 
 $acf_complex_titles = new ACFComplexTitles();
