@@ -1,19 +1,21 @@
-// ======================================================================== //
-//
-// ---- Advanced Custom Fields Complex Headlines ----
-//
-// Create complex, custom styled headlines with per-word or per-phrase styling
-// This code assumes you're using Roots/Sage as your starter theme.
-//  
-/*  Documentation:
-    
-    This script assumes you have the following ACF fields set up in the following heierarchy:
-    -- Headline Elements (Repeater field)
-    -- -- Word or Phrase (Text field)
-    -- -- [Additional fields per style you wish to apply to the headline element]
+/**
+ * ---- Advanced Custom Fields Complex Titles ----
+ *
+ * Create complex, custom styled headlines with per-word or per-phrase styling
+ * This code assumes you're using Roots/Sage as your starter theme.
+ *  
+ *  Documentation:
+ *  This script assumes you have the following ACF fields set up in the following heierarchy:
+ *  -- Title Groups (Repeater field)
+ *  -- -- Headline Elements (Repeater field)
+ *  -- -- -- Word or Phrase (Text field)
+ *  -- -- -- [Additional fields per style you wish to apply to the headline element]
 */
-// ======================================================================== //
 
+/**
+ * Get the closest matching descendents of an element
+ * @return object
+ */
 (function($) {
     $.fn.closest_descendents = function(filter) {
         var $found = $(),
@@ -31,19 +33,17 @@
 
 jQuery(document).ready(function($) {
     
-    // ======================================================================== //
-    // Script configuration
-    // ======================================================================== //
-    // *
-    // *
+    /**
+     * Script configuration
+     */
     
             // Configure the ACF field names you used when setting up fields
-            var groups              = "build_title";             // Field id of the groups repeater field
-            var groups_layout       = "field_56f07db857699";        // Groups layout options must be in an ACF tab. Field id of the layout tab.
-            var repeater            = "title";                   // Field id of the repeater field containing headline elements
-            var layout              = "title_layout";            // Field id layout select field for the overall headline style
-            var word                = "word_or_phrase";             // Field id containing the word to be styled in the preview area
-            var draggable           = false;                        // Should elements be draggable, and thus positioned absolutely?
+            var groups              = "build_title";            // Field id of the groups repeater field
+            var groups_layout       = "field_56f07db857699";    // Groups layout options must be in an ACF tab. Field id of the layout tab.
+            var repeater            = "title";                  // Field id of the repeater field containing headline elements
+            var layout              = "title_layout";           // Field id layout select field for the overall headline style
+            var word                = "word_or_phrase";         // Field id containing the word to be styled in the preview area
+            var draggable           = false;                    // Should elements be draggable, and thus positioned absolutely?
                 
             // Configure HTML to be used in the preview area (this should marginally match the HTML used on the front-end)
             var header_tag                  = "h1";
@@ -65,30 +65,21 @@ jQuery(document).ready(function($) {
             var preview_element_path    = '.' + preview_area_class + ' ' + header_tag;
             var fields_to_watch         = 'input, select, input[type=checkbox], input[type=radio]';
     
-    // *
-    // *
-    // ======================================================================== //
     
     
-    
-    // ======================================================================== //
-    // Function to remove a dot when the ACF repeater row is removed
-    // ======================================================================== //  
-    
+    /**
+     * Update layout classes
+     */
     function updateLayout( theClass ) {
         // Remove all the front-end classes so we can re-apply them all correctly
         $('.' + preview_area_class + ' ' + layout_tag).removeClass().addClass( layout_class + ' ' + layout_basename + theClass );
     }
-    
-    // ======================================================================== //
-    
+
     
     
-    // ======================================================================== //
-    // Function to update elements in the preview area
-    // when the appropriate title field is changed
-    // ======================================================================== //  
-    
+    /**
+     * Function to update elements in the preview area when the appropriate title field is changed
+     */
     function updateElement(group, $el) {
         $el.each( function() {
             var index       = $el.index();
@@ -144,7 +135,10 @@ jQuery(document).ready(function($) {
     }
     
     
-    
+
+    /**
+     * Function to update groups in the preview area when the appropriate title field is changed
+     */
     function updateGroup($el) {
         $el.each( function() {
             var index       = $el.index();
@@ -196,26 +190,24 @@ jQuery(document).ready(function($) {
     }
     
 
-    // ======================================================================== //
-    // Function to append headline preview
-    // ======================================================================== //
 
-        function appendPreview( $el ) {
-            if(! $el.closest('.acf-clone').length ) {
-                $el.find('.' + preview_area_class).remove();
-                $el.prepend( '<' + preview_area + ' class="' + preview_area_class + '"><' + layout_tag + ' class="' + layout_class + '"><' + header_tag + '></' + header_tag + '></' + layout_tag + '></' + preview_area + '>' );
-                $el.find('.acf-label, .acf-input').hide();
-                updateLayout( $el.closest('.acf-fields').find('[data-name="' + layout + '"] select').val() );
-            }
-        }   
-    // ======================================================================== //
+    /**
+     * Function to append headline preview
+     */
+    function appendPreview( $el ) {
+        if(! $el.closest('.acf-clone').length ) {
+            $el.find('.' + preview_area_class).remove();
+            $el.prepend( '<' + preview_area + ' class="' + preview_area_class + '"><' + layout_tag + ' class="' + layout_class + '"><' + header_tag + '></' + header_tag + '></' + layout_tag + '></' + preview_area + '>' );
+            $el.find('.acf-label, .acf-input').hide();
+            updateLayout( $el.closest('.acf-fields').find('[data-name="' + layout + '"] select').val() );
+        }
+    }   
 
     
     
-    // ======================================================================== //
-    // Function to add elements in the preview area
-    // ======================================================================== //  
-    
+    /**
+     * Function to add elements to the preview area
+     */ 
     function appendElements( group, $el, skipIndex ) {
         index           = parseInt($el.index());
         skipIndex       = parseInt(skipIndex);
@@ -240,21 +232,16 @@ jQuery(document).ready(function($) {
 
             }
         }
-    }
-    
-    // ======================================================================== //
+    }    
     
     
-    
-    // ======================================================================== //
-    // Function to add groups in the preview area
-    // ======================================================================== //  
-    
+    /**
+     * Function to add groups in the preview area
+     */
     function appendGroups( $el, skipIndex ) {
         index           = parseInt($el.index());
         skipIndex       = parseInt(skipIndex);
         if(index >= 0) {
-
             // Remove the element if it already exists
             $( preview_element_path + ' [data-group=' + index + ']').remove();
 
@@ -282,15 +269,12 @@ jQuery(document).ready(function($) {
             }
         }
     }
-    
-    // ======================================================================== //
-    
+
     
     
-    // ======================================================================== //
-    // Watch for changes to fields in the repeater and update the the preview area
-    // ======================================================================== //
-    
+    /**
+     * Watch for changes to ACF fields fields in repeaters and update the the preview area
+     */
     function watchElements() {
         $('[data-name="' + repeater + '"]').on( 'input change', fields_to_watch, function() {
             updateElement( $(this).parents('.acf-row').last().index(), $(this).closest('.acf-row') );
@@ -302,28 +286,23 @@ jQuery(document).ready(function($) {
             updateGroup( $(this).parents('.acf-row').last() );
         });
     }
-    
-    // ======================================================================== //
-    
+        
     
     
-    // ======================================================================== //
-    // Watch for changes to the layout and update the the preview area
-    // ======================================================================== //
-    
+    /**
+     * Watch for changes to the layout fields and update the the preview area
+     */
     function watchLayout() {
         $('[data-name="' + layout + '"]').on( 'change', fields_to_watch, function() {
             updateLayout( $(this).val() );
         });
     }
-    
-    // ======================================================================== //
 
     
 
-    // ======================================================================== //
-    // Initialize headline preview on page load
-    // ======================================================================== //  
+    /**
+     * Initialize title groups in preview area
+     */
     function groupsInit() {
         $('[data-name="' + groups + '"]').each( function() {
             $(this).closest_descendents('.acf-row').each( function() {
@@ -334,6 +313,9 @@ jQuery(document).ready(function($) {
         });
     }
     
+    /**
+     * Initialize title elements in preview area
+     */
     function headlinesInit() {
         $(preview_area_placeholder).each( function() {
             appendPreview($(this));
@@ -344,83 +326,81 @@ jQuery(document).ready(function($) {
         watchLayout();
     }
     
-    //initialize elements on page load
+    /**
+     * Initialize all groups and elements when the page loads
+     */
     headlinesInit();
-    
-    // ======================================================================== //
-    
+        
     
     
-    // ======================================================================== //
-    // Update All Elements and Groups
-    // ======================================================================== //  
-    
+    /**
+     * Update all elements and groups
+     */
     function updateAllElements() {
         groupsInit();
     }
-    
-    // ======================================================================== //
-    
+        
     
     
-    // ======================================================================== //
-    // Function to remove an element when the ACF repeater row is removed
-    // ======================================================================== //  
-    
+    /**
+     * Function to remove an element from the preview area when the ACF repeater row is removed
+     */
     function removeElements(group, $el) {
         skipIndex = $el.index();
         if(skipIndex >= 0) {
-            appendGroups( $el, skipIndex );
+            appendElements( group, $el, skipIndex );
             setTimeout(updateAllElements, 1000);
         }
     }
+
+    /**
+     * Function to remove a group from the preview area when the ACF repeater row is removed
+     */
+    function removeGroups($el) {
+        skipIndex = $el.index();
+        if(skipIndex >= 0) {
+            appendGroups( $el, skipIndex );
+        }
+    }
+
     
-    // ======================================================================== //
     
-    
-    
-    // ======================================================================== //
-    // Listen for the creation of new repeater rows and create new elements in
-    // preview area when new rows are added
-    // ======================================================================== //      
-    
+    /**
+     * Listen for the creation of new repeater rows and create new elements in 
+     * preview area when new rows are added
+     */
     if(typeof acf !== 'undefined') {
         acf.add_action('append', function( $el ){
             headlinesInit();
         });
     }
-    
-    // ======================================================================== //
-    
+
     
 
-    // ======================================================================== //
-    // Listen for drag-and-drop events and re-initialize the preview when one
-    // occurs.
-    // ======================================================================== //    
-    
+    /**
+     * Listen for drag-and-drop events and re-initialize the preview when one
+     * occurs.
+     */
     if(typeof acf !== 'undefined') {
         acf.add_action('sortstop', function( $el ){
             headlinesInit();
         }); 
     }
-    
-    // ======================================================================== //
-
 
     
-    // ======================================================================== //
-    // Listen for rows being removed, remove and re-index dots accordingly
-    // ======================================================================== //  
-    
+    /**
+     * Listen for rows being removed, remove and re-index preview area elements accordingly
+     */
     if(typeof acf !== 'undefined') {
         acf.add_action('remove', function( $el ){
             console.log($el);
             var group   = $el.parents('.acf-row').last().index();
-            removeElements(group, $el);
+            if ( $el.parents('.acf-field-repeater').data('name') == groups) {
+                removeGroups($el)
+            } else {
+                removeElements(group, $el);
+            }
         });
     }
     
-    // ======================================================================== //
-
 });

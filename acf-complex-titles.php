@@ -141,7 +141,7 @@ License: MIT
          */
             function replace_title($title) {
                 if( have_rows('build_title') && in_the_loop() ) {
-                    $title = do_shortcode('[acfct_title]');
+                    $title = do_shortcode('[acfct-title]');
                     return $title;
                 } else {
                     return $title;
