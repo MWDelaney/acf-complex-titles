@@ -1,57 +1,53 @@
 .complex-title {
-    h1 {
-        .complex-title {
-            &-group {
-                font-weight: 300;
-                display: block;
-                &-alignment {
-                    &-none {
-                        text-align: left;
-                    }
-                    &-left {
-                        text-align: left;
-                    }
-                    &-right {
-                        text-align: right;
-                    }
-                    &-center {
-                        text-align: center;
-                    }
-                }
+    &-group {
+        font-weight: 300;
+        display: block;
+        &-alignment {
+            &-none {
+                text-align: left;
             }
-            &-element {
-                &-emphasize {
-                    font-weight: 600;
-                }
-                &-size {
-                    &-sm {
-                        font-size: 50%;
-                        line-height: 100%;
-                    }
-                    &-lg {
-                        font-size: 150%;
-                        line-height: 100%;
-                    }
-                }
-                &-alignment {
-                    &-none {
-                        display: inline;
-                    }
-                    &-left {
-                        display: block;
-                        text-align: center;
-                        text-align: left;
-                    }
-                    &-right {
-                        display: block;
-                        text-align: center;
-                        text-align: right;
-                    }
-                    &-center {
-                        display: block;
-                        text-align: center;
-                    }
-                }
+            &-left {
+                text-align: left;
+            }
+            &-right {
+                text-align: right;
+            }
+            &-center {
+                text-align: center;
+            }
+        }
+    }
+    &-element {
+        &-emphasize {
+            font-weight: 600;
+        }
+        &-size {
+            &-sm {
+                font-size: 50%;
+                line-height: 100%;
+            }
+            &-lg {
+                font-size: 150%;
+                line-height: 100%;
+            }
+        }
+        &-alignment {
+            &-none {
+                display: inline;
+            }
+            &-left {
+                display: block;
+                text-align: center;
+                text-align: left;
+            }
+            &-right {
+                display: block;
+                text-align: center;
+                text-align: right;
+            }
+            &-center {
+                display: block;
+                text-align: center;
             }
         }
     }

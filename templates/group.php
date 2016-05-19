@@ -1,6 +1,5 @@
 <?php if( have_rows('build_title') ): ?>
-<header class="complex-title">
-    <h1>
+    <span class="complex-title">
         <?php
             while ( have_rows('build_title') ) : the_row(); ?>
                 <?php
@@ -13,6 +12,5 @@
                 </span>
 
         <?php endwhile; ?>
-    </h1>
-</header>
+    </span>
 <?php endif; ?>
