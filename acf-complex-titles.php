@@ -65,7 +65,8 @@ License: MIT
                 add_filter( 'the_title', array( $this, 'replace_title' ) );
 
                 // Enqueue admin styles and scripts
-                add_action('admin_enqueue_scripts', array( $this, 'admin_styles_scripts' ) );
+                add_action('admin_enqueue_scripts', array( $this, 'admin_styles' ) );
+                add_action('admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
                 
                 // Enqueue front-end styles
                 add_action('wp_enqueue_scripts', array( $this, 'front_end_styles' ) );
@@ -79,8 +80,11 @@ License: MIT
          * Enqueue admin scripts and styles
          */
         
-            function admin_styles_scripts() {
+            function admin_styles() {
                 wp_enqueue_style( 'acf-complex-titles-admin-style', ACFCT_PLUGIN_URL . 'assets/css/admin.css' );
+            }
+
+            function admin_scripts() {
                 wp_enqueue_script( 'acf-complex-titles-admin-script', ACFCT_PLUGIN_URL . 'assets/js/admin-script.js' );
             }
                 

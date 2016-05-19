@@ -45,3 +45,12 @@ add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'p
 
 ## Templates
 Basic templates and styles are included. These templates are designed to be simple for styling via your theme. To override the included templates, copy the template(s) you wish to override from `templates` to your theme in a sub-directory called `ct-templates`
+
+## Styles
+This plugin ships with basic styling for the default fields. These styles are enqueued on the front-end and in the WordPress admin so that the Complex Title preview area matches the front-end as closely as possible.
+To dequeue these styles and replace them with your own, add the following to `functions.php`
+````{r, engine='php', count_lines}
+remove_action('wp_enqueue_style', array( $acf_complex_titles, 'front_end_styles' ) );
+remove_action('admin_enqueue_scripts', array( $acf_complex_titles, 'admin_styles' ) );
+````
+
