@@ -43,8 +43,60 @@ License: MIT
 
 
 
+   /**
+     * Set classes for a layout. These can be overridden or added to with a filter like the following:
+     *     add_filter( 'ct_set_group_classes', 'custom_group_classes' );
+     *     function custom_group_classes($classes) {
+     *         if(is_page_template('template-landing-page.php') {
+     *             $classes[]   = 'on-landing-page';
+     *         }
+     *         return $classes;
+     *     }
+     *         
+     * @return string string of classes
+     */
+    function ct_group_classes() {
+        $class_basename = 'complex-title-group';
+        $classes    = array();
+        $classes[]  = $class_basename;
+        $classes[]  = (get_sub_field('alignment'))        ? ' ' . $class_basename . '-alignment-' . get_sub_field('alignment')   : '';
+
+        
+        $classes = array_filter(array_map('trim', $classes));
+        echo trim(implode(' ', apply_filters( 'ct_set_group_classes', $classes )));
+    }
+
+
+
+
+   /**
+     * Set classes for a title element. These can be overridden or added to with a filter like the following:
+     *     add_filter( 'ct_set_element_classes', 'custom_element_classes' );
+     *     function custom_element_classes($classes) {
+     *         if(is_page_template('template-landing-page.php') {
+     *             $classes[]   = 'on-landing-page';
+     *         }
+     *         return $classes;
+     *     }
+     *         
+     * @return string string of classes
+     */
+    function ct_element_classes() {
+        $class_basename = 'complex-title-element';
+        $classes    = array();
+        $classes[]  = $class_basename;
+        $classes[]  = (get_sub_field('alignment'))        ? ' ' . $class_basename . '-alignment-' . get_sub_field('alignment')   : '';
+        $classes[]  = (get_sub_field('emphasize'))        ? ' ' . $class_basename . '-emphasize' : '';
+        $classes[]  = (get_sub_field('size'))             ? ' ' . $class_basename . '-size-' . get_sub_field('size')   : '';    
+        
+        $classes = array_filter(array_map('trim', $classes));
+        echo trim(implode(' ', apply_filters( 'ct_set_element_classes', $classes )));
+    }
+
+
+
 /**
- * Main Complex a Titles class
+ * Main Complex Titles class
  */
 
     class ACFComplexTitles {
