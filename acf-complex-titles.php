@@ -27,7 +27,8 @@ License: MIT
     require ACFCT_PLUGIN_DIR . 'lib/class-gamajo-template-loader.php';
     require ACFCT_PLUGIN_DIR . 'lib/class-acfct-template-loader.php';
 
-
+    require ACFCT_PLUGIN_DIR . 'lib/class-acfct-layout.php';
+    require ACFCT_PLUGIN_DIR . 'lib/class-acfct-fields.php';
 
 /**
  * Template wrapper

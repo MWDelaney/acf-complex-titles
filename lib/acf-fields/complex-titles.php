@@ -181,8 +181,10 @@ if( function_exists('acf_add_local_field_group') ):
     } else {
         // If theme support is not explicitly defined, enable all fields as a fallback.
         $layout_fields_enabled = array();
-        foreach(glob(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/*.php') as $layout_field) {
-            $layout_fields_enabled[] = basename($layout_field, '.php');
+        foreach(get_class_methods('CTLayout') as $layout_field) {
+            if($layout_field != '__construct') {
+                $layout_fields_enabled[] = $layout_field;
+            }
         }
     }
     // Enable each layout field
@@ -191,9 +193,12 @@ if( function_exists('acf_add_local_field_group') ):
         unset($args['fields'][1]['sub_fields'][2]);
         unset($args['fields'][1]['sub_fields'][0]);
     } else {
-        $layout_fields_array = array();
+
+        // Enable each layout field
+        $CTLayouts      = new CTLayout();
+        $layout_fields_array  = array();
         foreach ($layout_fields_enabled as $layout_field) {
-            include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/layout/' . $layout_field . '.php');
+            $layout_fields_array[]    = $CTLayouts->$layout_field();
         }
         // Sort layout fields by the 'order' element
         usort($layout_fields_array, function ($a, $b) {
@@ -227,22 +232,25 @@ if( function_exists('acf_add_local_field_group') ):
     } else {
         // If theme support is not explicitly defined, enable all fields as a fallback.
         $fields_enabled = array();
-        foreach(glob(ACFCT_PLUGIN_DIR . 'lib/acf-fields/fields/*.php') as $field) {
-            $fields_enabled[] = basename($field, '.php');
+        foreach(get_class_methods('CTFields') as $field) {
+            if($field != '__construct') {
+                $fields_enabled[] = $field;
+            }
         }
     }
 
-    // Enable each field
-    $fields_array = array();
+    // Enable each layout field
+    $CTFields      = new CTFields();
+    $fields_array  = array();
     foreach ($fields_enabled as $field) {
-        include(ACFCT_PLUGIN_DIR . 'lib/acf-fields/fields/' . $field . '.php');
+        $fields_array[]    = $CTFields->$field();
     }
-    // Sort fields by the 'order' element
+    // Sort layout fields by the 'order' element
     usort($fields_array, function ($a, $b) {
         if ($a['order'] == $b['order']) return 0;
         return $a['order'] < $b['order'] ? -1 : 1;
     });
-    // Insert each field into the $args array
+    // Insert each layout field into the $args array
     foreach ( $fields_array as $field) {
         $args['fields'][1]['sub_fields'][1]['sub_fields'][] = $field['field'];
     }

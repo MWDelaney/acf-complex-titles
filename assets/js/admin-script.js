@@ -39,7 +39,7 @@ jQuery(document).ready(function($) {
     
             // Configure the ACF field names you used when setting up fields
             var groups              = "build_title";            // Field id of the groups repeater field
-            var groups_layout       = "field_56f07db857699";    // Groups layout options must be in an ACF tab. Field id of the layout tab.
+            var groups_layout       = "acfct-layoutfield-alignment";    // Groups layout options must be in an ACF tab. Field id of the layout tab.
             var repeater            = "title";                  // Field id of the repeater field containing headline elements
             var layout              = "title_layout";           // Field id layout select field for the overall headline style
             var word                = "word_or_phrase";         // Field id containing the word to be styled in the preview area
