@@ -197,12 +197,18 @@ License: MIT
          * @return string
          */
             function replace_title($title) {
+                global $post;
                 if( have_rows('build_title') && in_the_loop() ) {
-                    $title = do_shortcode('[acfct-title]');
-                    return $title;
-                } else {
-                    return $title;
-                }
+                    
+                    // Check whether the current post's title is the same as what's being passed to the filter. This prevents attempting to run the filter on content it won't work with.
+                    if( $post->post_title == $title ) {
+                        $title = do_shortcode('[acfct-title]');
+                        return $title;
+                    } else {
+                        return $title;
+                    }
+                    
+                } 
             }
 
     }
