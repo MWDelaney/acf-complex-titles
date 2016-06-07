@@ -200,7 +200,7 @@ License: MIT
                 global $post;
                 if( have_rows('build_title') && in_the_loop() ) {
                     // Check whether the current post's title is the same as what's being passed to the filter. This prevents attempting to run the filter on content it won't work with.
-                    if( $post->post_title == $title ) {
+                    if( sanitize_title($post->post_title) == sanitize_title($title) ) {
                         $complex_title = do_shortcode('[acfct-title]');
                         $title = $complex_title;
                     }
