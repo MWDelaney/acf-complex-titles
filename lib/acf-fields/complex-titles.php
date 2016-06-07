@@ -11,7 +11,11 @@
  */
 
 
-
+add_action( 'admin_init', 'ct_create_titles' );
+if(!is_admin()) {
+    add_action( 'wp_loaded', 'ct_create_titles' );
+}
+function ct_create_titles() {
 if( function_exists('acf_add_local_field_group') ):
 
     /**
@@ -268,3 +272,4 @@ if( function_exists('acf_add_local_field_group') ):
     acf_add_local_field_group($args);
 
 endif;
+}
