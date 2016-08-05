@@ -137,7 +137,21 @@ if( function_exists('acf_add_local_field_group') ):
     * Default: post_type == page
     *
     * Declare theme support for specific post types:
-    *   add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'page'), array('post_type', '==', 'post') ) );
+    * $landing_page_templates = array(
+    * 	array (
+    * 		array (
+    * 			'param' => 'post_type',
+    * 			'operator' => '==',
+    * 			'value' => 'page',
+    * 		),
+    * 		array (
+    * 			'param' => 'page_template',
+    * 			'operator' => '!=',
+    * 			'value' => 'template-no-header-image.php',
+    * 		),
+    *	),
+    * );
+    * add_theme_support( 'complex-titles-location', $landing_page_templates );
     */
 
     //Check if theme support is explicitly defined. If so, enable all attachments declared in theme support.
@@ -147,22 +161,18 @@ if( function_exists('acf_add_local_field_group') ):
 
     } else {
         // If theme support is not explicitly defined, enable default attachments.
-        $locations_enabled = array();
-        $locations_enabled[] = array('post_type', '==', 'page');
-    }
-
-    // Enable each location
-    $location_array = array();
-    foreach ($locations_enabled as $location) {
-        // There is probably a better way to do this, but this makes it easy to visualize each location being added
-        $this_array = array();
-        $this_array['param']        = ($location[0]) ? $location[0] : 'post_type';
-        $this_array['operator']     = ($location[1]) ? $location[1] : '==';
-        $this_array['value']        = ($location[2]) ? $location[2] : '';
-        $location_array[]           = array($this_array);
+        $locations_enabled = array(
+          array (
+            array (
+              'param' => 'post_type',
+              'operator' => '==',
+              'value' => 'page',
+            )
+          )
+        );
     }
     // Insert each location into the $args array
-    $args['location'] = $location_array;
+    $args['location'] = $locations_enabled;
 
 
     /**
