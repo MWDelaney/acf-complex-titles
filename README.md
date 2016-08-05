@@ -40,7 +40,21 @@ add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
 By default complex titles are enabled for Pages, to define which post types complex titles should be available on, declare theme support:
 
 ````{r, engine='php', count_lines}
-add_theme_support( 'complex-titles-location', array( array('post_type', '==', 'page'), array('post_type', '==', 'post') ) );
+ $landing_page_templates = array(
+   array (
+     array (
+       'param' => 'post_type',
+       'operator' => '==',
+       'value' => 'page',
+     ),
+     array (
+       'param' => 'page_template',
+       'operator' => '!=',
+       'value' => 'template-no-header-image.php',
+     ),
+   ),
+ );
+ add_theme_support( 'complex-titles-location', $landing_page_templates );
 ````
 
 ## Templates
