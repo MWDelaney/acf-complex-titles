@@ -1,18 +1,21 @@
 {
   "name": "mwdelaney/acf-complex-titles",
   "description": "Complex titles with previews for WordPress content types using Advanced Custom Fields Pro 5.",
-  "keywords": ["wordpress", "plugin", "advanced custom fields"],
+  "keywords": ["wordpress", "plugin", "advanced custom fields", "title"],
   "homepage": "https://github.com/MWDelaney/acf-complex-titles",
   "license": "MIT",
   "authors": [
     {
       "name": "Michael W. Delaney",
-      "email": "michael@michaeldelaney.me",
-      "homepage": ""
-    }
+      "email": "michael@michaeldelaney.me"
+		}
   ],
   "type": "wordpress-plugin",
   "require": {
-    "php": ">=5.3.2"
+    "php": ">=5.3.2",
+		"gamajo/template-loader": "^1.2.0"
+  },
+	"autoload": {
+    "psr-4": { "MWD\\ACF\\ComplexTitles\\": "lib/" }
   }
 }

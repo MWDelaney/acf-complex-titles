@@ -1,0 +1,47 @@
+[
+    {
+        "name": "gamajo/template-loader",
+        "version": "1.2.0",
+        "version_normalized": "1.2.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/GaryJones/Gamajo-Template-Loader.git",
+            "reference": "e53b4698670de81849e04c1d24a82e8466e59c99"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/GaryJones/Gamajo-Template-Loader/zipball/e53b4698670de81849e04c1d24a82e8466e59c99",
+            "reference": "e53b4698670de81849e04c1d24a82e8466e59c99",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.4"
+        },
+        "time": "2016-03-26 07:42:40",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "class-gamajo-template-loader.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "authors": [
+            {
+                "name": "Gary Jones",
+                "email": "gamajo@gamajo.com",
+                "homepage": "http://gamajo.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A class for your WordPress plugin, to allow loading template parts with fallback through the child theme > parent theme > plugin",
+        "homepage": "http://github.com/GaryJones/Gamajo-Template-Loader",
+        "keywords": [
+            "templates",
+            "wordpress"
+        ]
+    }
+]

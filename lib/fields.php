@@ -1,5 +1,8 @@
 <?php
-    class CTFields {
+
+namespace MWD\ACF\ComplexTitles;
+
+  class Fields {
 
 		private $layout;
 		private $repeater;
@@ -8,9 +11,8 @@
 			$this->repeater = $repeater;
 			$this->key 		= 'acfct-';
 			$this->key 	   .= (isset($repeater)) ? '-repeater-' . $repeater : null;
-        	$this->key     .= '-field-';
+      $this->key     .= '-field-';
 		}
-
 
 
 		/**
@@ -22,7 +24,7 @@
 		 * Text
 		 */
 		function word_or_phrase() {
-			return( 
+			return(
 			    array ( 'order' => '0',
 			        'field' => array (
 			            'key' => 'field_5673331424dd6',
@@ -60,8 +62,8 @@
 		 * Select
 		 */
 		function alignment() {
-			return( 
-			    array ( 'order' => '50', 
+			return(
+			    array ( 'order' => '50',
 			        'field' => array (
 			            'key' => 'field_56f056b90e0a7',
 			            'label' => 'Alignment',
@@ -106,8 +108,8 @@
 		 * Checkbox
 		 */
 		function emphasize() {
-			return( 
-			    array ( 'order' => '10', 
+			return(
+			    array ( 'order' => '10',
 			        'field' => array (
 			            'key' => 'field_5673332224dd7',
 			            'label' => 'Emphasize',
@@ -139,8 +141,8 @@
 		 * Select
 		 */
 		function size() {
-			return( 
-			    array ( 'order' => '30', 
+			return(
+			    array ( 'order' => '30',
 			        'field' => array (
 			            'key' => 'field_56f143ff070bc',
 			            'label' => 'Size',

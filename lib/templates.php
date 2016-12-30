@@ -1,13 +1,16 @@
 <?php
- 
+
+namespace MWD\ACF\ComplexTitles;
+
+
 /**
  * Template loader for ACF Flexible Content Blocks.
  *
  * Only need to specify class properties here.
  *
  */
-class ACFCT_Template_Loader extends Gamajo_Template_Loader {
- 
+class Templates extends \Gamajo_Template_Loader {
+
 	/**
 	 * Prefix for filter names.
 	 *
@@ -15,7 +18,7 @@ class ACFCT_Template_Loader extends Gamajo_Template_Loader {
 	 * @type string
 	 */
 	protected $filter_prefix = 'acfct';
- 
+
 	/**
 	 * Directory name where custom templates for this plugin should be found in the theme.
 	 *
@@ -23,7 +26,7 @@ class ACFCT_Template_Loader extends Gamajo_Template_Loader {
 	 * @type string
 	 */
 	protected $theme_template_directory = 'ct-templates';
- 
+
 	/**
 	 * Reference to the root directory path of this plugin.
 	 *
@@ -31,5 +34,5 @@ class ACFCT_Template_Loader extends Gamajo_Template_Loader {
 	 * @type string
 	 */
 	protected $plugin_directory = ACFCT_PLUGIN_DIR;
- 
+
 }

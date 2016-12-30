@@ -1,5 +1,8 @@
 <?php
-    class CTLayout {
+
+namespace MWD\ACF\ComplexTitles;
+
+    class Layout {
 
 		private $layout;
 		private $repeater;
@@ -19,12 +22,12 @@
 		 *
 		 * @author Michael W. Delaney
 		 * @since 1.0
-		 * 
+		 *
 		 * Select
 		 */
 		function alignment() {
-			return( 
-			    array ( 'order' => '50', 
+			return(
+			    array ( 'order' => '50',
 				    'field' => array (
 						'key' => $this->key . __FUNCTION__,
 				        'label' => 'Alignment',

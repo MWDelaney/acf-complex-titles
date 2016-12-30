@@ -1,11 +1,12 @@
-<?php if( have_rows('build_title') ): ?>
-    <span class="complex-title">
-        <?php
-            while ( have_rows('build_title') ) : the_row(); ?>
-                <span class="<?php ct_group_classes(); ?>">
-                    <?php ct_template('element', get_post_type()); ?>    
-                </span>
 
-        <?php endwhile; ?>
-    </span>
-<?php endif; ?>
+<span class="<?=$context->classes?>">
+	<?php
+	if( have_rows('title') ): ?>
+
+	    <?php while ( have_rows('title') ) : the_row(); ?>
+				<?php \MWD\ACF\ComplexTitles\template( 'element', get_post_type() ); ?>
+		<?php
+		    endwhile;
+		endif;
+		?>
+</span>
