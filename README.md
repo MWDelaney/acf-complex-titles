@@ -23,6 +23,32 @@ The following layouts are also included for headline groups:
 
 1. Alignment
 
+### Add fields
+To add fields to the title(s), extend the Fields class as follows:
+````{r, engine='php', count_lines}
+	 add_filter ('acfct_set_fields_class',  function() { return 'myFields'; });
+
+	 class myFields extends MWD\ACF\ComplexTitles\Fields {
+		 /**
+ 		 * Field: Emphasize
+ 		 *
+ 		 * @author Michael W. Delaney
+ 		 * @since 1.0
+ 		 *
+ 		 * Checkbox
+ 		 */
+ 		public $underline = array (
+ 			'order' => '10',
+ 			'field' => array (
+ 				'key' => 'acfct_underline',
+ 				'label' => 'Underline',
+ 				'name' => 'underline',
+ 				'type' => 'true_false',
+ 			)
+ 		);
+	 }
+````
+
 ### Enable only some fields
 To remove fields from the available list, declare theme support for only the fields you wish to use:
 ````{r, engine='php', count_lines}
