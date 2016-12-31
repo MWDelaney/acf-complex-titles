@@ -11,7 +11,7 @@ namespace MWD\ACF\ComplexTitles;
 			$this->repeater = $repeater;
 			$this->key 		= 'acfct-';
 			$this->key 	   .= (isset($repeater)) ? '-repeater-' . $repeater : null;
-      $this->key     .= '-field-';
+			$this->key     .= '-field-';
 		}
 
 
