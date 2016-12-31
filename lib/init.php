@@ -32,10 +32,10 @@ namespace MWD\ACF\ComplexTitles;
                 // Enqueue front-end styles
                 add_action('wp_enqueue_scripts', array( $this, 'front_end_styles' ) );
 
-								add_action( 'admin_init', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
-								if(!is_admin()) {
-								    add_action( 'wp_loaded', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
-								}
+		add_action( 'admin_init', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
+		if(!is_admin()) {
+			add_action( 'wp_loaded', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
+		}
 
             }
 
@@ -80,9 +80,9 @@ namespace MWD\ACF\ComplexTitles;
          */
 
           function acfct_title() {
-					  ob_start();
-            \MWD\ACF\ComplexTitles\template( 'title', get_post_type() );
-            return ob_get_clean();
+		  ob_start();
+		  \MWD\ACF\ComplexTitles\template( 'title', get_post_type() );
+		  return ob_get_clean();
           }
 
 					/**
