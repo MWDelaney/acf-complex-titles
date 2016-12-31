@@ -3,7 +3,7 @@
  *
  * Create complex, custom styled headlines with per-word or per-phrase styling
  * This code assumes you're using Roots/Sage as your starter theme.
- *  
+ *
  *  Documentation:
  *  This script assumes you have the following ACF fields set up in the following heierarchy:
  *  -- Title Groups (Repeater field)
@@ -27,16 +27,16 @@
             $currentSet = $currentSet.children();
         }
         return $found; // Return first match of the collection
-    };    
+    };
 })(jQuery);
 
 
 jQuery(document).ready(function($) {
-    
+
     /**
      * Script configuration
      */
-    
+
             // Configure the ACF field names you used when setting up fields
             var groups              = "build_title";            // Field id of the groups repeater field
             var groups_layout       = "acfct-layoutfield-alignment";    // Groups layout options must be in an ACF tab. Field id of the layout tab.
@@ -44,15 +44,15 @@ jQuery(document).ready(function($) {
             var layout              = "title_layout";           // Field id layout select field for the overall headline style
             var word                = "word_or_phrase";         // Field id containing the word to be styled in the preview area
             var draggable           = false;                    // Should elements be draggable, and thus positioned absolutely?
-                
+
             // Configure HTML to be used in the preview area (this should marginally match the HTML used on the front-end)
             var header_tag                  = "h1";
             var layout_tag                  = "header";
             var layout_class                = "complex-title";
-            var preview_area_placeholder    = ".acf-field-5673328771366";   // Class or ID of ACF "Message" field placeholder to be replaced with preview area.
+            var preview_area_placeholder    = ".acf-field-acfct-placeholder";   // Class or ID of ACF "Message" field placeholder to be replaced with preview area.
             var preview_area                = "div";
             var preview_area_class          = "acf-complex-titles-preview-area";
-        
+
             var layout_basename         = "complex-title-layout complex-layout-";
 
             var group_basename          = "complex-title-group";
@@ -60,13 +60,13 @@ jQuery(document).ready(function($) {
 
             var class_basename          = "complex-title-element";
             var element_class           = class_basename;
-    
+
             // Dont change anything below this line
             var preview_element_path    = '.' + preview_area_class + ' ' + header_tag;
             var fields_to_watch         = 'input, select, input[type=checkbox], input[type=radio]';
-    
-    
-    
+
+
+
     /**
      * Update layout classes
      */
@@ -75,8 +75,8 @@ jQuery(document).ready(function($) {
         $('.' + preview_area_class + ' ' + layout_tag).removeClass().addClass( layout_class + ' ' + layout_basename + theClass );
     }
 
-    
-    
+
+
     /**
      * Function to update elements in the preview area when the appropriate title field is changed
      */
@@ -85,21 +85,21 @@ jQuery(document).ready(function($) {
             var index       = $el.index();
             var element     = $( preview_element_path + ' [data-group=' + group + ']' + ' span[data-index=' + index + ']');
             var text        = ' ' + $(this).find('[data-name=' + word + ']').find('input').val();
-            
+
             // Remove all the front-end classes so we can re-apply them all correctly
             $(element).attr('class',
                function(i, c){
                   return c.replace(/(^|\s)complex-title-\S+/g, '');
                });
-            
+
             // Update the actual text
             $(element).html(text);
-            
+
             $(this).find(fields_to_watch).each( function() {
                 var thisclass       = '';
                 var thisvalue       = '';
                 var thisstyle       = '';
-                
+
                 if($(this).closest('.acf-field').data('type') === 'true_false') {
                     if($(this).is(':checked')) {
                         thisclass       = $(this).closest('.acf-field').data('name');
@@ -120,7 +120,7 @@ jQuery(document).ready(function($) {
                     }
 
                 }
-                
+
                 // Apply style or class
                 $(element).addClass(class_basename);
                 if( thisclass !== word && thisclass.length > 0 ) {
@@ -133,8 +133,8 @@ jQuery(document).ready(function($) {
             });
         });
     }
-    
-    
+
+
 
     /**
      * Function to update groups in the preview area when the appropriate title field is changed
@@ -143,18 +143,18 @@ jQuery(document).ready(function($) {
         $el.each( function() {
             var index       = $el.index();
             var element     = $( preview_element_path + ' [data-group=' + index + ']');
-            
+
             // Remove all the front-end classes so we can re-apply them all correctly
             $(element).attr('class',
                function(i, c){
                   return c.replace(/(^|\s)complex-title-\S+/g, '');
                });
-            
+
             $(this).find('[data-key=' + groups_layout + ']').find(fields_to_watch).each( function() {
                 var thisclass       = '';
                 var thisvalue       = '';
                 var thisstyle       = '';
-                
+
                 if($(this).closest('.acf-field').data('type') === 'true_false') {
                     if($(this).is(':checked')) {
                         thisclass       = $(this).closest('.acf-field').data('name');
@@ -175,7 +175,7 @@ jQuery(document).ready(function($) {
                     }
 
                 }
-                
+
                 // Apply style or class
                 $(element).addClass(group_basename);
                 if( thisclass !== word && thisclass.length > 0 ) {
@@ -188,7 +188,7 @@ jQuery(document).ready(function($) {
             });
         });
     }
-    
+
 
 
     /**
@@ -201,13 +201,13 @@ jQuery(document).ready(function($) {
             $el.find('.acf-label, .acf-input').hide();
             updateLayout( $el.closest('.acf-fields').find('[data-name="' + layout + '"] select').val() );
         }
-    }   
+    }
 
-    
-    
+
+
     /**
      * Function to add elements to the preview area
-     */ 
+     */
     function appendElements( group, $el, skipIndex ) {
         index           = parseInt($el.index());
         skipIndex       = parseInt(skipIndex);
@@ -232,9 +232,9 @@ jQuery(document).ready(function($) {
 
             }
         }
-    }    
-    
-    
+    }
+
+
     /**
      * Function to add groups in the preview area
      */
@@ -270,8 +270,8 @@ jQuery(document).ready(function($) {
         }
     }
 
-    
-    
+
+
     /**
      * Watch for changes to ACF fields fields in repeaters and update the the preview area
      */
@@ -280,15 +280,15 @@ jQuery(document).ready(function($) {
             updateElement( $(this).parents('.acf-row').last().index(), $(this).closest('.acf-row') );
         });
     }
-    
+
     function watchGroups() {
         $('[data-key="' + groups_layout + '"]').on( 'input change', fields_to_watch, function() {
             updateGroup( $(this).parents('.acf-row').last() );
         });
     }
-        
-    
-    
+
+
+
     /**
      * Watch for changes to the layout fields and update the the preview area
      */
@@ -298,7 +298,7 @@ jQuery(document).ready(function($) {
         });
     }
 
-    
+
 
     /**
      * Initialize title groups in preview area
@@ -312,7 +312,7 @@ jQuery(document).ready(function($) {
             });
         });
     }
-    
+
     /**
      * Initialize title elements in preview area
      */
@@ -325,23 +325,23 @@ jQuery(document).ready(function($) {
         watchGroups();
         watchLayout();
     }
-    
+
     /**
      * Initialize all groups and elements when the page loads
      */
     headlinesInit();
-        
-    
-    
+
+
+
     /**
      * Update all elements and groups
      */
     function updateAllElements() {
         groupsInit();
     }
-        
-    
-    
+
+
+
     /**
      * Function to remove an element from the preview area when the ACF repeater row is removed
      */
@@ -363,10 +363,10 @@ jQuery(document).ready(function($) {
         }
     }
 
-    
-    
+
+
     /**
-     * Listen for the creation of new repeater rows and create new elements in 
+     * Listen for the creation of new repeater rows and create new elements in
      * preview area when new rows are added
      */
     if(typeof acf !== 'undefined') {
@@ -375,7 +375,7 @@ jQuery(document).ready(function($) {
         });
     }
 
-    
+
 
     /**
      * Listen for drag-and-drop events and re-initialize the preview when one
@@ -384,10 +384,10 @@ jQuery(document).ready(function($) {
     if(typeof acf !== 'undefined') {
         acf.add_action('sortstop', function( $el ){
             headlinesInit();
-        }); 
+        });
     }
 
-    
+
     /**
      * Listen for rows being removed, remove and re-index preview area elements accordingly
      */
@@ -402,5 +402,5 @@ jQuery(document).ready(function($) {
             }
         });
     }
-    
+
 });
