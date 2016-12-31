@@ -147,9 +147,7 @@ jQuery(document).ready(function($) {
             // Remove all the front-end classes so we can re-apply them all correctly
             $(element).attr('class',
                function(i, c){
-								 	var gc = group_class;
-									gc += ' ' + group_basename + '-' + index;
-                  return gc;
+                  return c.replace(/(^|\s)complex-title-\S+/g, '');
                });
 
             $(this).find('[data-key=' + groups_layout + ']').find(fields_to_watch).each( function() {
@@ -181,7 +179,7 @@ jQuery(document).ready(function($) {
                 // Apply style or class
                 $(element).addClass(group_basename);
                 if( thisclass !== word && thisclass.length > 0 ) {
-                    console.log(thisclass);
+                    //console.log(thisclass);
                     $(element).addClass(group_basename + '-' + thisclass);
                 }
                 if( thisstyle !== '' ) {
@@ -240,35 +238,26 @@ jQuery(document).ready(function($) {
     /**
      * Function to add groups in the preview area
      */
-    function appendGroups( $el, skipIndex ) {
-        index           = parseInt($el.index());
-        skipIndex       = parseInt(skipIndex);
+    function appendGroups( $el) {
+				index           = parseInt($el.index());
         if(index >= 0) {
-            // Remove the element if it already exists
-            $( preview_element_path + ' [data-group=' + index + ']').remove();
-
-            //Check whether we just removed this element from the repeating field. If we did, then adjust the element index
-            if(index !== skipIndex) {
-                if(index >= skipIndex) {
-                    index = index-1;
-                }
-                // Then create the element in the preview area
-                var group_number            = index;
-                var classes                 = group_basename;
-                //console.log(classes);
-                // Add all elements with their current settings.
-                $el.each( function() {
-                    $( preview_element_path ).append('<span data-group="' + index + '" class="' + classes + '"></span>');
-                    updateGroup($el);
-                    $(this).find('[data-name="' + repeater + '"]').each( function() {
-                        $(this).find('.acf-row').each( function( index ) {
-                            if(!$(this).hasClass('acf-clone')) {
-                                appendElements( group_number, $(this) );
-                            }
-                        });
-                    });
-                });
-            }
+        // Remove the element if it already exists
+          // Then create the element in the preview area
+          var group_number            = index;
+          var classes                 = group_basename;
+          //console.log(classes);
+          // Add all elements with their current settings.
+          $el.each( function() {
+              $( preview_element_path ).append('<span data-group="' + index + '" class="' + classes + '"></span>');
+              updateGroup($el);
+              $(this).find('[data-name="' + repeater + '"]').each( function() {
+                  $(this).find('.acf-row').each( function( index ) {
+                      if(!$(this).hasClass('acf-clone')) {
+                          appendElements( group_number, $(this) );
+                      }
+                  });
+              });
+          });
         }
     }
 
@@ -339,6 +328,7 @@ jQuery(document).ready(function($) {
      * Update all elements and groups
      */
     function updateAllElements() {
+				$( preview_element_path + ' .complex-titles-to-be-removed').remove();
         groupsInit();
     }
 
@@ -358,11 +348,9 @@ jQuery(document).ready(function($) {
     /**
      * Function to remove a group from the preview area when the ACF repeater row is removed
      */
-    function removeGroups($el) {
-        skipIndex = $el.index();
-        if(skipIndex >= 0) {
-            appendGroups( $el, skipIndex );
-        }
+    function removeGroups() {
+			$( preview_element_path + ' [data-group]').addClass('complex-titles-to-be-removed');
+			setTimeout(updateAllElements, 1000);
     }
 
 
@@ -398,7 +386,7 @@ jQuery(document).ready(function($) {
             console.log($el);
             var group   = $el.parents('.acf-row').last().index();
             if ( $el.parents('.acf-field-repeater').data('name') == groups) {
-                removeGroups($el)
+                removeGroups();
             } else {
                 removeElements(group, $el);
             }
