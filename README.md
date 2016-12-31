@@ -25,7 +25,7 @@ The following layouts are also included for headline groups:
 
 ### Add fields
 To add fields to the title(s), extend the Fields class as follows:
-````{r, engine='php', count_lines}
+````
 	 // Replace the plugin's Fields class with our class extending it
 	 add_filter ('acfct_set_fields_class',  function() { return 'myFields'; });
 
