@@ -114,6 +114,8 @@ class Setup {
 		* Pass an empty array to disable alignment fields altogether:
 		*   add_theme_support( 'complex-titles-layout', array() );
 		*/
+		$layout_class = null;
+		$layout_class = apply_filters('acfct_set_layout_class', $layout_class);
 
 		//Check if theme support is explicitly defined. If so, only enable layouts declared in theme support.
 		if( current_theme_supports( 'complex-titles-layout' ) ) {
@@ -122,7 +124,7 @@ class Setup {
 		} else {
 				// If theme support is not explicitly defined, enable all fields as a fallback.
 				$layout_fields_enabled = array();
-				foreach(get_class_vars('\MWD\ACF\ComplexTitles\Layout') as $name => $value) {
+				foreach(get_class_vars($layout_class) as $name => $value) {
 					$layout_fields_enabled[] = $name;
 				}
 		}
@@ -134,7 +136,7 @@ class Setup {
 		} else {
 
 				// Enable each layout field
-				$CTLayouts      = new \MWD\ACF\ComplexTitles\Layout();
+				$CTLayouts      = new $layout_class;
 				$layout_fields_array  = array();
 				foreach ($layout_fields_enabled as $name) {
 					$layout_fields_array[] = $CTLayouts->$name;
@@ -164,6 +166,9 @@ class Setup {
 		*
 		*/
 
+		$fields_class = null;
+		$fields_class = apply_filters('acfct_set_fields_class', $fields_class);
+
 		//Check if theme support is explicitly defined. If so, only enable fields declared in theme support.
 		if( current_theme_supports( 'complex-titles-fields' ) ) {
 				$fields_supported = get_theme_support( 'complex-titles-fields' );
@@ -171,13 +176,14 @@ class Setup {
 		} else {
 				// If theme support is not explicitly defined, enable all fields as a fallback.
 				$fields_enabled = array();
-				foreach(get_class_vars('\MWD\ACF\ComplexTitles\Fields') as $name => $value) {
+				foreach(get_class_vars($fields_class) as $name => $value) {
 					$fields_enabled[] = $name;
 				}
 		}
 
 		// Enable each layout field
-		$CTFields      = new Fields();
+
+		$CTFields      = new $fields_class;
 		$fields_array  = array();
 		foreach ($fields_enabled as $name) {
 				$fields_array[]	= $CTFields->$name;
