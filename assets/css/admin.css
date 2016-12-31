@@ -7,35 +7,3 @@
     color: #444 !important;
     font-size: 3vw !important;
     line-height: 3vw !important; }
-  .acf-complex-titles-preview-area .complex-title-group {
-    font-weight: 300;
-    display: block; }
-    .acf-complex-titles-preview-area .complex-title-group-alignment-none {
-      text-align: left; }
-    .acf-complex-titles-preview-area .complex-title-group-alignment-left {
-      text-align: left; }
-    .acf-complex-titles-preview-area .complex-title-group-alignment-right {
-      text-align: right; }
-    .acf-complex-titles-preview-area .complex-title-group-alignment-center {
-      text-align: center; }
-  .acf-complex-titles-preview-area .complex-title-element-emphasize {
-    font-weight: 600; }
-  .acf-complex-titles-preview-area .complex-title-element-size-sm {
-    font-size: 50%;
-    line-height: 100%; }
-  .acf-complex-titles-preview-area .complex-title-element-size-lg {
-    font-size: 150%;
-    line-height: 100%; }
-  .acf-complex-titles-preview-area .complex-title-element-alignment-none {
-    display: inline; }
-  .acf-complex-titles-preview-area .complex-title-element-alignment-left {
-    display: block;
-    text-align: center;
-    text-align: left; }
-  .acf-complex-titles-preview-area .complex-title-element-alignment-right {
-    display: block;
-    text-align: center;
-    text-align: right; }
-  .acf-complex-titles-preview-area .complex-title-element-alignment-center {
-    display: block;
-    text-align: center; }
