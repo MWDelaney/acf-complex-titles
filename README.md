@@ -30,10 +30,7 @@ To add fields to the title(s), extend the Fields class as follows:
 
 	 class myFields extends MWD\ACF\ComplexTitles\Fields {
 		 /**
- 		 * Field: Emphasize
- 		 *
- 		 * @author Michael W. Delaney
- 		 * @since 1.0
+ 		 * Field: Underline
  		 *
  		 * Checkbox
  		 */
