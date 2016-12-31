@@ -1,5 +1,4 @@
 # Advanced Custom Fields Complex Titles
-**NOTE:** This plugin is very much a work in progress.
 
 A WordPress plugin that adds custom fields to create a formatted title
 
