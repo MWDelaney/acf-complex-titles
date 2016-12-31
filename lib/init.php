@@ -24,13 +24,19 @@ namespace MWD\ACF\ComplexTitles;
                 add_action('admin_enqueue_scripts', array( $this, 'admin_styles' ) );
                 add_action('admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
-		// Set up contextual data for templates
+								// Set up contextual data for templates
                 add_action('acf-complex-titles-before-group', array( $this, 'group_context' ) );
                 add_action('acf-complex-titles-before-element', array( $this, 'element_context' ) );
 
-
                 // Enqueue front-end styles
                 add_action('wp_enqueue_scripts', array( $this, 'front_end_styles' ) );
+
+		// Set default fields class name
+		add_filter ('acfct_set_fields_class',  function() { return '\MWD\ACF\ComplexTitles\Fields'; });
+
+		// Set default layout class name
+		add_filter ('acfct_set_layout_class',  function() { return '\MWD\ACF\ComplexTitles\Layout'; });
+
 
 		add_action( 'admin_init', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
 		if(!is_admin()) {
@@ -38,7 +44,6 @@ namespace MWD\ACF\ComplexTitles;
 		}
 
             }
-
 
 
         /**
@@ -115,9 +120,9 @@ namespace MWD\ACF\ComplexTitles;
 				        $classes[]  = (get_sub_field('emphasize'))        ? ' ' . $class_basename . '-emphasize' : '';
 				        $classes[]  = (get_sub_field('size'))             ? ' ' . $class_basename . '-size-' . get_sub_field('size')   : '';
 
-								$classes = apply_filters( 'ct_set_element_classes', $classes );
- 							 	$data = array('classes' => esc_attr(trim(implode(' ', $classes))));
- 							 	\MWD\ACF\ComplexTitles\template_data( $data, 'context' );
+					$classes = apply_filters( 'ct_set_element_classes', $classes );
+ 					$data = array('classes' => esc_attr(trim(implode(' ', $classes))));
+ 					\MWD\ACF\ComplexTitles\template_data( $data, 'context' );
 				    }
 
 
