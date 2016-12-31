@@ -147,7 +147,9 @@ jQuery(document).ready(function($) {
             // Remove all the front-end classes so we can re-apply them all correctly
             $(element).attr('class',
                function(i, c){
-                  return c.replace(/(^|\s)complex-title-\S+/g, '');
+								 	var gc = group_class;
+									gc += ' ' + group_basename + '-' + index;
+                  return gc;
                });
 
             $(this).find('[data-key=' + groups_layout + ']').find(fields_to_watch).each( function() {
@@ -179,7 +181,7 @@ jQuery(document).ready(function($) {
                 // Apply style or class
                 $(element).addClass(group_basename);
                 if( thisclass !== word && thisclass.length > 0 ) {
-                    //console.log(thisclass);
+                    console.log(thisclass);
                     $(element).addClass(group_basename + '-' + thisclass);
                 }
                 if( thisstyle !== '' ) {
