@@ -31,10 +31,8 @@ require __DIR__ . '/vendor/autoload.php';
  * Require classes to load template files from site theme with fallback to plugin directory
  */
 
- use Init;
  $acfct_init = new \MWD\ACF\ComplexTitles\Init();
 
- use Setup;
  $acfct_setup = new \MWD\ACF\ComplexTitles\Setup();
 
 
