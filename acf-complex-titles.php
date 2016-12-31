@@ -9,7 +9,7 @@ Author URI:
 License: MIT
 */
 
-namespace MWD\ACF\ComplexTitles;
+namespace MWD\ComplexTitles;
 
 /**
  * Set up autoloader
@@ -31,9 +31,9 @@ require __DIR__ . '/vendor/autoload.php';
  * Require classes to load template files from site theme with fallback to plugin directory
  */
 
- $acfct_init = new \MWD\ACF\ComplexTitles\Init();
+ $acfct_init = new \MWD\ComplexTitles\Init();
 
- $acfct_setup = new \MWD\ACF\ComplexTitles\Setup();
+ $acfct_setup = new \MWD\ComplexTitles\Setup();
 
 
 /**
@@ -46,7 +46,7 @@ require __DIR__ . '/vendor/autoload.php';
  function template($slug, $load = null) {
 	 $a = ($load) ? '-' . $load : null;
 	 $s = ($slug) ? '-' . $slug : null;
-	 $t = new \MWD\ACF\ComplexTitles\Templates;
+	 $t = new \MWD\ComplexTitles\Templates;
 	 do_action('acf-complex-titles-before' . $s);
 	 do_action('acf-complex-titles-before' . $a);
 	 $t->get_template_part( $slug, $load );
@@ -54,6 +54,6 @@ require __DIR__ . '/vendor/autoload.php';
 	 do_action('acf-complex-titles-after' . $s);
  }
  function template_data($data, $name) {
-	 $d = new \MWD\ACF\ComplexTitles\Templates;
+	 $d = new \MWD\ComplexTitles\Templates;
 	 $d->set_template_data( $data, $name );
  }

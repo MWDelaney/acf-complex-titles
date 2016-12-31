@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'MWD\\ACF\\ComplexTitles\\' => array($baseDir . '/lib'),
+    'MWD\\ComplexTitles\\' => array($baseDir . '/lib'),
 );

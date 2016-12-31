@@ -1,6 +1,6 @@
 <?php
 
-namespace MWD\ACF\ComplexTitles;
+namespace MWD\ComplexTitles;
 
 class Setup {
 

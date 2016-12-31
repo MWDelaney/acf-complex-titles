@@ -1,6 +1,6 @@
 <?php
 
-namespace MWD\ACF\ComplexTitles;
+namespace MWD\ComplexTitles;
 
 /**
  * Main Complex Titles class
@@ -36,15 +36,18 @@ namespace MWD\ACF\ComplexTitles;
 								// Enqueue front-end styles
 								add_action('wp_enqueue_scripts', array( $this, 'complex_titles_styles' ) );
 
+								// Set default layout class name
+								add_filter ('acfct_set_layout_class',  function() { return '\MWD\ComplexTitles\Layout'; });
+
 								// Set default fields class name
-								add_filter ('acfct_set_fields_class',  function() { return '\MWD\ACF\ComplexTitles\Fields'; });
+								add_filter ('acfct_set_fields_class',  function() { return '\MWD\ComplexTitles\Fields'; });
 
 								// Set default layout class name
-								add_filter ('acfct_set_layout_class',  function() { return '\MWD\ACF\ComplexTitles\Layout'; });
+								add_filter ('acfct_set_layout_class',  function() { return '\MWD\ComplexTitles\Layout'; });
 
-								add_action( 'admin_init', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
+								add_action( 'admin_init', '\MWD\ComplexTitles\Setup::create_titles' );
 								if(!is_admin()) {
-									add_action( 'wp_loaded', '\MWD\ACF\ComplexTitles\Setup::create_titles' );
+									add_action( 'wp_loaded', '\MWD\ComplexTitles\Setup::create_titles' );
 								}
 
 						}
@@ -54,8 +57,15 @@ namespace MWD\ACF\ComplexTitles;
 				 * Set classname containing Complex Title fields
 				 */
 				 function fields_class($s) {
-					 return '\MWD\ACF\ComplexTitles\Fields';
+					 return '\MWD\ComplexTitles\Fields';
 				 }
+
+				 /**
+					* Set classname containing Complex Title fields
+					*/
+					function layout_class($s) {
+						return '\MWD\ComplexTitles\Layout';
+					}
 
 				 /**
 					* Create a new action so it's easier to include styles in a single action call
@@ -104,9 +114,9 @@ namespace MWD\ACF\ComplexTitles;
 				 */
 
 					function acfct_title() {
-			ob_start();
-			\MWD\ACF\ComplexTitles\template( 'title', get_post_type() );
-			return ob_get_clean();
+						ob_start();
+						\MWD\ComplexTitles\template( 'title', get_post_type() );
+						return ob_get_clean();
 					}
 
 					/**
@@ -123,7 +133,7 @@ namespace MWD\ACF\ComplexTitles;
 
 							 $classes = apply_filters( 'ct_set_group_classes', $classes );
 							 $data = array('classes' => esc_attr(trim(implode(' ', $classes))));
-							 \MWD\ACF\ComplexTitles\template_data( $data, 'context' );
+							 \MWD\ComplexTitles\template_data( $data, 'context' );
 					 }
 
 					 /**
@@ -141,7 +151,7 @@ namespace MWD\ACF\ComplexTitles;
 
 								$classes = apply_filters( 'ct_set_element_classes', $classes );
 									$data = array('classes' => esc_attr(trim(implode(' ', $classes))));
-									\MWD\ACF\ComplexTitles\template_data( $data, 'context' );
+									\MWD\ComplexTitles\template_data( $data, 'context' );
 						}
 
 
