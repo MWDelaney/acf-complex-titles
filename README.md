@@ -26,11 +26,37 @@ The following layouts are also included for headline groups:
 ### Add fields
 To add fields to the title(s), extend the Fields class as follows:
 ````{r, engine='php', count_lines}
+	 // Replace the plugin's Fields class with our class extending it
 	 add_filter ('acfct_set_fields_class',  function() { return 'myFields'; });
 
+	 // Add custom CSS to style the new fields
+	 add_action ('complex_titles_css', 'addMyStyles');
+
+	 /**
+	  * Add styling for the new fields
+	  * 	Naming scheme is as follows:
+	  * 		.complex-title-element-[your-field-acf-name]
+	  */
+	 
+	 function addMyStyles() {
+		 // Variable containing the styles we want to add
+		 $myStyles = "
+		 	.complex-title-element-underline {
+				text-decoration: underline;
+			}
+		 ";
+		 
+		 // Enqueue these styles along with the plugin's other styles
+		 wp_add_inline_style( 'acf-complex-titles-style', $myStyles );
+	 }
+
+	 // Our class extending the plugin's class to add new fields
 	 class myFields extends MWD\ACF\ComplexTitles\Fields {
 		 /**
  		 * Field: Underline
+ 		 *
+ 		 * @author Michael W. Delaney
+ 		 * @since 1.0
  		 *
  		 * Checkbox
  		 */
@@ -86,7 +112,6 @@ Basic templates and styles are included. These templates are designed to be simp
 This plugin ships with basic styling for the default fields. These styles are enqueued on the front-end and in the WordPress admin so that the Complex Title preview area matches the front-end as closely as possible.
 To dequeue these styles and replace them with your own, add the following to `functions.php`
 ````{r, engine='php', count_lines}
-remove_action('wp_enqueue_style', array( $acf_complex_titles, 'front_end_styles' ) );
-remove_action('admin_enqueue_scripts', array( $acf_complex_titles, 'admin_styles' ) );
+remove_action('complex_titles_css', array( $acf_complex_titles, 'front_end_styles' ) );
 ````
 
