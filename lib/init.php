@@ -24,7 +24,7 @@ namespace MWD\ACF\ComplexTitles;
                 add_action('admin_enqueue_scripts', array( $this, 'admin_styles' ) );
                 add_action('admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
-								// Set up contextual data for templates
+		// Set up contextual data for templates
                 add_action('acf-complex-titles-before-group', array( $this, 'group_context' ) );
                 add_action('acf-complex-titles-before-element', array( $this, 'element_context' ) );
 
