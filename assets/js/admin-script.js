@@ -82,8 +82,8 @@ jQuery(document).ready(function($) {
      */
     function updateElement(group, $el) {
         $el.each( function() {
-            var index       = $el.index();
-            var element     = $( preview_element_path + ' [data-group=' + group + ']' + ' span[data-index=' + index + ']');
+            var index       = parseInt($el.index());
+            var element     = $( preview_element_path + ' [data-group]').eq(group).children('[data-index]').eq(index);
             var text        = ' ' + $(this).find('[data-name=' + word + ']').find('input').val();
 
             // Remove all the front-end classes so we can re-apply them all correctly
@@ -208,29 +208,17 @@ jQuery(document).ready(function($) {
     /**
      * Function to add elements to the preview area
      */
-    function appendElements( group, $el, skipIndex ) {
-        index           = parseInt($el.index());
-        skipIndex       = parseInt(skipIndex);
+    function appendElement( group, $el ) {
+        index  = parseInt($el.index());
         if(index >= 0) {
-            // console.log(group);
-            // Remove the element if it already exists
-            $( preview_element_path + ' [data-group=' + group + ']' + ' [data-index=' + index + ']').remove();
-            //Check whether we just removed this element from the repeating field. If we did, then adjust the element index
-            if(index !== skipIndex) {
-                if(index >= skipIndex) {
-                    index = index-1;
-                }
-                // Then create the element in the preview area
-                var element_number          = index;
-                var classes                 = element_class + " " + element_class + "-" + element_number;
-                //console.log(classes);
-                // Add all elements with their current settings.
-                $el.each( function() {
-                    $( preview_element_path + ' [data-group=' + group + ']').append('<span data-index="' + index + '" class="' + classes + '"></span>');
-                    updateElement(group, $(this));
-                });
 
-            }
+					var classes = element_class + " " + element_class + "-" + index;
+
+            // Add all elements with their current settings.
+            $el.each( function() {
+                $( preview_element_path + ' [data-group]').eq(group).append('<span data-index="' + index + '" class="' + classes + '"></span>');
+                updateElement(group, $(this));
+            });
         }
     }
 
@@ -243,8 +231,8 @@ jQuery(document).ready(function($) {
         if(index >= 0) {
         // Remove the element if it already exists
           // Then create the element in the preview area
-          var group_number            = index;
-          var classes                 = group_basename;
+          var group = index;
+          var classes = group_basename;
           //console.log(classes);
           // Add all elements with their current settings.
           $el.each( function() {
@@ -253,7 +241,7 @@ jQuery(document).ready(function($) {
               $(this).find('[data-name="' + repeater + '"]').each( function() {
                   $(this).find('.acf-row').each( function( index ) {
                       if(!$(this).hasClass('acf-clone')) {
-                          appendElements( group_number, $(this) );
+                          appendElement( group, $(this) );
                       }
                   });
               });
@@ -268,13 +256,13 @@ jQuery(document).ready(function($) {
      */
     function watchElements() {
         $('[data-name="' + repeater + '"]').on( 'input change', fields_to_watch, function() {
-            updateElement( $(this).parents('.acf-row').last().index(), $(this).closest('.acf-row') );
+					groupsInit();
         });
     }
 
     function watchGroups() {
         $('[data-key="' + groups_layout + '"]').on( 'input change', fields_to_watch, function() {
-            updateGroup( $(this).parents('.acf-row').last() );
+					groupsInit();
         });
     }
 
@@ -325,32 +313,18 @@ jQuery(document).ready(function($) {
 
 
     /**
-     * Update all elements and groups
-     */
-    function updateAllElements() {
-				$( preview_element_path + ' .complex-titles-to-be-removed').remove();
-        groupsInit();
-    }
-
-
-
-    /**
      * Function to remove an element from the preview area when the ACF repeater row is removed
      */
-    function removeElements(group, $el) {
-        skipIndex = $el.index();
-        if(skipIndex >= 0) {
-            appendElements( group, $el, skipIndex );
-            setTimeout(updateAllElements, 1000);
-        }
+    function removeElement(group, remove) {
+			$( preview_element_path + ' [data-group]').eq(group).children().eq(remove).remove();
     }
 
     /**
      * Function to remove a group from the preview area when the ACF repeater row is removed
      */
-    function removeGroups() {
-			$( preview_element_path + ' [data-group]').addClass('complex-titles-to-be-removed');
-			setTimeout(updateAllElements, 1000);
+    function removeGroup(remove) {
+			// Remove preview group with the index of the row just removed.
+			$( preview_element_path + ' [data-group]').eq(remove).remove();
     }
 
 
@@ -383,12 +357,21 @@ jQuery(document).ready(function($) {
      */
     if(typeof acf !== 'undefined') {
         acf.add_action('remove', function( $el ){
-            console.log($el);
-            var group   = $el.parents('.acf-row').last().index();
-            if ( $el.parents('.acf-field-repeater').data('name') == groups) {
-                removeGroups();
+
+						// Get the index of the row removed
+            var remove   = $el.index();
+
+						// If the removed immediate repeater parent is NOT the
+						// groups repeater, get the parent repeater's index so we can
+						// be sure to remove the right element from the right group
+						if($el.closest('.acf-field-repeater').data('name') != groups) {
+							var group = $el.parents('.acf-row').index();
+						}
+            if ($el.closest('.acf-field-repeater').data('name') == groups) {
+                // If the row was a title group, remove the whole row
+								removeGroup(group);
             } else {
-                removeElements(group, $el);
+                removeElement(group, remove);
             }
         });
     }
