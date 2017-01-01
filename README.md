@@ -51,7 +51,7 @@ To add fields to the title(s), extend the Fields class as follows:
 	 }
 
 	 // Our class extending the plugin's class to add new fields
-	 class myFields extends MWD\ACF\ComplexTitles\Fields {
+	 class myFields extends MWD\ComplexTitles\Fields {
 		 /**
  		 * Field: Underline
  		 *
