@@ -25,7 +25,7 @@ The following layouts are also included for headline groups:
 
 ### Add fields
 To add fields to the title(s), extend the Fields class as follows:
-````
+```php
 	 // Replace the plugin's Fields class with our class extending it
 	 add_filter ('acfct_set_fields_class',  function() { return 'myFields'; });
 
@@ -70,24 +70,24 @@ To add fields to the title(s), extend the Fields class as follows:
  			)
  		);
 	 }
-````
+```
 
 ### Enable only some fields
 To remove fields from the available list, declare theme support for only the fields you wish to use:
-````{r, engine='php', count_lines}
+```php
 add_theme_support( 'complex-titles-fields', array( 'word-or-phrase', 'size' ) );
-````
+```
 
 ### Enable only some layouts
 To remove layouts from the available list, declare theme support for only the layouts you wish to use:
-````{r, engine='php', count_lines}
+```php
 add_theme_support( 'complex-titles-layout', array( 'alignment' ) );
-````
+```
 
 ### Change which post types get Complex Titles
 By default complex titles are enabled for Pages, to define which post types complex titles should be available on, declare theme support:
 
-````{r, engine='php', count_lines}
+```php
  $landing_page_templates = array(
    array (
      array (
@@ -103,7 +103,7 @@ By default complex titles are enabled for Pages, to define which post types comp
    ),
  );
  add_theme_support( 'complex-titles-location', $landing_page_templates );
-````
+```
 
 ## Templates
 Basic templates and styles are included. These templates are designed to be simple for styling via your theme. To override the included templates, copy the template(s) you wish to override from `templates` to your theme in a sub-directory called `ct-templates`
@@ -111,7 +111,7 @@ Basic templates and styles are included. These templates are designed to be simp
 ## Styles
 This plugin ships with basic styling for the default fields. These styles are enqueued on the front-end and in the WordPress admin so that the Complex Title preview area matches the front-end as closely as possible.
 To dequeue these styles and replace them with your own, add the following to `functions.php`
-````{r, engine='php', count_lines}
+```php
 remove_action('complex_titles_css', array( $acf_complex_titles, 'front_end_styles' ) );
-````
+```
 
