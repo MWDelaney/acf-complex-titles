@@ -366,12 +366,11 @@ jQuery(document).ready(function($) {
 						// be sure to remove the right element from the right group
 						if($el.closest('.acf-field-repeater').data('name') != groups) {
 							var group = $el.parents('.acf-row').index();
+							removeElement(group, remove);
 						}
-            if ($el.closest('.acf-field-repeater').data('name') == groups) {
+            else {
                 // If the row was a title group, remove the whole row
-								removeGroup(group);
-            } else {
-                removeElement(group, remove);
+								removeGroup(remove);
             }
         });
     }
