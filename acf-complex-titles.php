@@ -32,28 +32,4 @@ require __DIR__ . '/vendor/autoload.php';
  */
 
  $acfct_init = new \MWD\ComplexTitles\Init();
-
  $acfct_setup = new \MWD\ComplexTitles\Setup();
-
-
-/**
- * Template wrapper
- *
- * @param string $slug The slug name for the generic template.
- * @param string $load The name of the specialised template.
- */
-
- function template($slug, $load = null) {
-	 $a = ($load) ? '-' . $load : null;
-	 $s = ($slug) ? '-' . $slug : null;
-	 $t = new \MWD\ComplexTitles\Templates;
-	 do_action('acf-complex-titles-before' . $s);
-	 do_action('acf-complex-titles-before' . $a);
-	 $t->get_template_part( $slug, $load );
-	 do_action('acf-complex-titles-after' . $a);
-	 do_action('acf-complex-titles-after' . $s);
- }
- function template_data($data, $name) {
-	 $d = new \MWD\ComplexTitles\Templates;
-	 $d->set_template_data( $data, $name );
- }

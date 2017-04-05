@@ -30,6 +30,7 @@ namespace MWD\ComplexTitles;
 								add_action('admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 
 								// Set up contextual data for templates
+								add_action('acf-complex-titles-before-title', array( $this, 'title_context' ) );
 								add_action('acf-complex-titles-before-group', array( $this, 'group_context' ) );
 								add_action('acf-complex-titles-before-element', array( $this, 'element_context' ) );
 
@@ -114,9 +115,35 @@ namespace MWD\ComplexTitles;
 				 */
 
 					function acfct_title() {
+
+						// Initialize the template loader
+						$templates = new \MWD\ComplexTitles\Templates;
+
 						ob_start();
-						\MWD\ComplexTitles\template( 'title', get_post_type() );
+						do_action('acf-complex-titles-before-title');
+						$templates->get_template_part( 'title', get_post_type() );
+						do_action('acf-complex-titles-after-title');
 						return ob_get_clean();
+					}
+
+
+					/**
+					 * Set template context for 'title' template
+					 */
+
+					 function title_context() {
+
+						// Initialize the templates class
+						$templates = new \MWD\ComplexTitles\Templates;
+
+						// Initialize the $context array
+						$context = array();
+
+						// Set template context to include the template loader so we can use it to call additional templates
+						$context['template'] = $templates;
+
+						// Set template context
+						$templates->set_template_data( $context, 'context' );
 					}
 
 					/**
@@ -124,16 +151,28 @@ namespace MWD\ComplexTitles;
 						*
 						* @return string string of classes
 						*/
-					 function group_context() {
-							 $class_basename = 'complex-title-group';
-							 $classes    = array();
-							 $classes[]  = $class_basename;
-							 $classes[]  = (get_sub_field('alignment'))        ? ' ' . $class_basename . '-alignment-' . get_sub_field('alignment')   : '';
+						function group_context() {
 
+							// Initialize the templates class
+							$templates = new \MWD\ComplexTitles\Templates;
 
-							 $classes = apply_filters( 'ct_set_group_classes', $classes );
-							 $data = array('classes' => esc_attr(trim(implode(' ', $classes))));
-							 \MWD\ComplexTitles\template_data( $data, 'context' );
+							// Set the default classes for groups
+							$class_basename = 'complex-title-group';
+							$classes    = array();
+							$classes[]  = $class_basename;
+							$classes[]  = (get_sub_field('alignment'))        ? ' ' . $class_basename . '-alignment-' . get_sub_field('alignment')   : '';
+
+							// Apply filter to classes
+							$classes = apply_filters( 'ct_set_group_classes', $classes );
+
+							// Set up template context array
+							$context  = array();
+							$context['template'] = $templates;
+							$context['classes'] = esc_attr(trim(implode(' ', $classes)));
+
+							// Set template data
+							$templates->set_template_data( $context, 'context' );
+
 					 }
 
 					 /**
@@ -142,16 +181,28 @@ namespace MWD\ComplexTitles;
 						 * @return string string of classes
 						 */
 						function element_context() {
-								$class_basename = 'complex-title-element';
-								$classes    = array();
-								$classes[]  = $class_basename;
-								$classes[]  = (get_sub_field('alignment'))        ? ' ' . $class_basename . '-alignment-' . get_sub_field('alignment')   : '';
-								$classes[]  = (get_sub_field('emphasize'))        ? ' ' . $class_basename . '-emphasize' : '';
-								$classes[]  = (get_sub_field('size'))             ? ' ' . $class_basename . '-size-' . get_sub_field('size')   : '';
+							// Initialize the templates class
+							$templates = new \MWD\ComplexTitles\Templates;
 
-								$classes = apply_filters( 'ct_set_element_classes', $classes );
-									$data = array('classes' => esc_attr(trim(implode(' ', $classes))));
-									\MWD\ComplexTitles\template_data( $data, 'context' );
+							// Set the default classes for elements
+							$class_basename = 'complex-title-element';
+							$classes    = array();
+							$classes[]  = $class_basename;
+							$classes[]  = (get_sub_field('alignment'))        ? ' ' . $class_basename . '-alignment-' . get_sub_field('alignment')   : '';
+							$classes[]  = (get_sub_field('emphasize'))        ? ' ' . $class_basename . '-emphasize' : '';
+							$classes[]  = (get_sub_field('size'))             ? ' ' . $class_basename . '-size-' . get_sub_field('size')   : '';
+
+							// Apply filter to classes
+							$classes = apply_filters( 'ct_set_element_classes', $classes );
+
+							// Set up template context array
+							$context  = array();
+							$context['template'] = $templates;
+							$context['classes'] = esc_attr(trim(implode(' ', $classes)));
+
+							// Set template data
+							$templates->set_template_data( $context, 'context' );
+
 						}
 
 
