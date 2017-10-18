@@ -20,6 +20,9 @@ namespace MWD\ComplexTitles;
                 // Maybe replace title with our complex title
                 add_filter( 'the_title', array( $this, 'replace_title' ) );
 
+                // Maybe replace title with our complex title
+                add_filter( 'complex_titles', array( $this, 'replace_title' ) );
+
                 // Set up an action to include the actual display styles, easily hooked to add more
                 add_action('admin_enqueue_scripts', array( $this, 'complex_titles_styles' ) );
                 add_action('wp_enqueue_scripts', array( $this, 'complex_titles_styles' ) );
@@ -50,6 +53,7 @@ namespace MWD\ComplexTitles;
                 if(!is_admin()) {
                   add_action( 'wp_loaded', '\MWD\ComplexTitles\Setup::create_titles' );
                 }
+
 
             }
 
