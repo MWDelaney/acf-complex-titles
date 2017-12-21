@@ -11,14 +11,24 @@ class Setup {
 			'key' => 'acf_complex_titles',
 			'title' => 'Complex Titles',
 			'fields' => array (
-					array (
-							'key' => 'acfct_placeholder',
-							'label' => 'Preview Placeholder',
-							'type' => 'message',
-					),
+				array (
+					'key' => 'acfct_tab_preview',
+					'label' => 'Preview',
+					'type' => 'tab',
+				),
+				array (
+						'key' => 'acfct_placeholder',
+						'label' => 'Preview Placeholder',
+						'type' => 'message',
+				),
+				array (
+					'key' => 'acfct_tab_build',
+					'label' => 'Edit',
+					'type' => 'tab',
+				),
 					array (
 							'key' => 'acfct_build_title',
-							'label' => 'Build Title',
+							'label' => '',
 							'name' => 'build_title',
 							'type' => 'repeater',
 							'layout' => 'block',
@@ -131,8 +141,8 @@ class Setup {
 		// Enable each layout field
 		// If no layout fields are enabled, remove the tabs to avoid clutter
 		if( count( $layout_fields_enabled ) <= 0 ) {
-				unset(self::$args['fields'][1]['sub_fields'][2]);
-				unset(self::$args['fields'][1]['sub_fields'][0]);
+				unset(self::$args['fields'][3]['sub_fields'][2]);
+				unset(self::$args['fields'][3]['sub_fields'][0]);
 		} else {
 
 				// Enable each layout field
@@ -148,7 +158,7 @@ class Setup {
 				});
 				// Insert each layout field into the $args array
 				foreach ( $layout_fields_array as $layout_field) {
-						self::$args['fields'][1]['sub_fields'][] = $layout_field['field'];
+						self::$args['fields'][3]['sub_fields'][] = $layout_field['field'];
 				}
 		}
 
@@ -195,7 +205,7 @@ class Setup {
 		});
 		// Insert each layout field into the $args array
 		foreach ( $fields_array as $field) {
-				self::$args['fields'][1]['sub_fields'][1]['sub_fields'][] = $field['field'];
+				self::$args['fields'][3]['sub_fields'][1]['sub_fields'][] = $field['field'];
 		}
 
 
