@@ -1,23 +1,23 @@
 [
     {
         "name": "gamajo/template-loader",
-        "version": "1.2.0",
-        "version_normalized": "1.2.0.0",
+        "version": "1.3.0",
+        "version_normalized": "1.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/GaryJones/Gamajo-Template-Loader.git",
-            "reference": "e53b4698670de81849e04c1d24a82e8466e59c99"
+            "reference": "05057216f60baebfc4939e1a2b9aae6e89d25c91"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/GaryJones/Gamajo-Template-Loader/zipball/e53b4698670de81849e04c1d24a82e8466e59c99",
-            "reference": "e53b4698670de81849e04c1d24a82e8466e59c99",
+            "url": "https://api.github.com/repos/GaryJones/Gamajo-Template-Loader/zipball/05057216f60baebfc4939e1a2b9aae6e89d25c91",
+            "reference": "05057216f60baebfc4939e1a2b9aae6e89d25c91",
             "shasum": ""
         },
         "require": {
             "php": ">=5.2.4"
         },
-        "time": "2016-03-26 07:42:40",
+        "time": "2017-03-24T17:28:34+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {

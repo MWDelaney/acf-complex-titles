@@ -16,6 +16,6 @@
 		"gamajo/template-loader": "^1.2.0"
   },
 	"autoload": {
-    "psr-4": { "MWD\\ComplexTitles\\": "lib/" }
+    "psr-4": { "MWD\\ComplexTitles\\": "app/" }
   }
 }
